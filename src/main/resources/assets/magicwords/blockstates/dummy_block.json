@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": {"model": "magicwords:block/dummy_block"}
+  }
+}
