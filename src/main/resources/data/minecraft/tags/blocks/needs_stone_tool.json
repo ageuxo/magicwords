@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "magicwords:dummy_log_block",
+    "magicwords:chalk_block"
+  ]
+}
