@@ -2,6 +2,9 @@
   "item.magicwords.chalk": "Chalk",
 
   "block.magicwords.dummy_block": "Dummy Block",
+  "block.magicwords.dummy_log_block": "Dummy Log Block",
+  "block.magicwords.chalk_block": "Chalk Block",
+
 
   "creativemodetab.magicwords_tab": "Magic Words"
 }
