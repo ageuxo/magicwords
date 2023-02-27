@@ -17,8 +17,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         blockWithItem(ModBlocks.CHALK_BLOCK);
         blockWithItem(ModBlocks.DUMMY_BLOCK);
-        blockWithItem(ModBlocks.DUMMY_CLAY_BLOCK);
-
 
     }
 

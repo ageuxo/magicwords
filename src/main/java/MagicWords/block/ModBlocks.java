@@ -21,7 +21,6 @@ public class ModBlocks {
 
 
     public static RegistryObject<Block> DUMMY_BLOCK = registerBlock("dummy_block", ()-> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(6f).requiresCorrectToolForDrops()));
-    public static RegistryObject<Block> DUMMY_CLAY_BLOCK = registerBlock("dummy_clay_block", ()-> new Block(BlockBehaviour.Properties.of(Material.CLAY).strength(1f)));
     public static RegistryObject<Block> CHALK_BLOCK = registerBlock("chalk_block", ()-> new Block(BlockBehaviour.Properties.of(Material.SAND).strength(0.5f)));
 
     public static RegistryObject<Block> DUMMY_LOG_BLOCK = registerBlock("dummy_log_block", ()-> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2f)));
