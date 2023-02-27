@@ -66,9 +66,7 @@ public class MagicWords {
         }
         @SubscribeEvent
         public static void onLoadFinished(FMLLoadCompleteEvent event){
-            System.out.println("Test logging");
-            System.out.println(ModItems.ITEMS.getEntries());
-            System.out.println("Finish test logging");
+
         }
 
 
