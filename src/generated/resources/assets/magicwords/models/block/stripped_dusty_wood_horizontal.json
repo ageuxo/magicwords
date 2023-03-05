@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "magicwords:block/stripped_dusty_log",
+    "side": "magicwords:block/stripped_dusty_log"
+  }
+}
