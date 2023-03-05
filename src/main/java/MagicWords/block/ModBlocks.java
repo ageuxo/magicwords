@@ -26,7 +26,7 @@ public class ModBlocks {
     public static RegistryObject<Block> DUMMY_LOG_BLOCK = registerBlock("dummy_log_block", ()-> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2f)));
 
 
-    private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block){
+    private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
         return toReturn;
