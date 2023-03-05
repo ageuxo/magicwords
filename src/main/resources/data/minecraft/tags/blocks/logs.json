@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "magicwords:dusty_log",
+    "magicwords:dusty_wood",
+    "magicwords:stripped_dusty_log",
+    "magicwords:stripped_dusty_wood"
+  ]
+}

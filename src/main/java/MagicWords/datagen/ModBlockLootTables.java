@@ -18,6 +18,15 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         dropSelf(ModBlocks.DUMMY_BLOCK.get());
         dropSelf(ModBlocks.CHALK_BLOCK.get());
         dropSelf(ModBlocks.DUMMY_LOG_BLOCK.get());
+
+        dropSelf(ModBlocks.DUSTY_LOG.get());
+        dropSelf(ModBlocks.DUSTY_WOOD.get());
+        dropSelf(ModBlocks.STRIPPED_DUSTY_LOG.get());
+        dropSelf(ModBlocks.STRIPPED_DUSTY_WOOD.get());
+        dropSelf(ModBlocks.DUSTY_PLANKS.get());
+        dropSelf(ModBlocks.DUSTY_SAPLING.get());
+
+        add(ModBlocks.DUSTY_LEAVES.get(), (block -> createLeavesDrops(block, ModBlocks.DUSTY_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)));
     }
 
     @Override
