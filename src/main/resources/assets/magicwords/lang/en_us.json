@@ -4,7 +4,13 @@
   "block.magicwords.dummy_block": "Dummy Block",
   "block.magicwords.dummy_log_block": "Dummy Log Block",
   "block.magicwords.chalk_block": "Chalk Block",
-
+  "block.magicwords.dusty_log": "Dusty Log",
+  "block.magicwords.dusty_wood": "Dusty Wood",
+  "block.magicwords.stripped_dusty_log": "Stripped Dusty Log",
+  "block.magicwords.stripped_dusty_wood": "Stripped Dusty Wood",
+  "block.magicwords.dusty_sapling": "Dusty Sapling",
+  "block.magicwords.dusty_leaves": "Dusty Leaves",
+  "block.magicwords.dusty_planks": "Dusty Planks",
 
   "creativemodetab.magicwords_tab": "Magic Words"
 }
