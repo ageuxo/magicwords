@@ -1,0 +1,20 @@
+{
+	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"0": "magicwords:block/glyph",
+		"particle": "magicwords:block/glyph"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 16],
+			"to": [16, 16, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"south": {"uv": [16, 0, 0, 16], "texture": "#0", "cullface": "south"}
+			}
+		}
+	],
+	"display": {}
+}

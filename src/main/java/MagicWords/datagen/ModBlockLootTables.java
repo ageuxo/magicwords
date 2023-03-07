@@ -27,6 +27,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         dropSelf(ModBlocks.DUSTY_SAPLING.get());
 
         add(ModBlocks.DUSTY_LEAVES.get(), (block -> createLeavesDrops(block, ModBlocks.DUSTY_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)));
+        add(ModBlocks.GLYPH_BLOCK.get(), block -> noDrop());
     }
 
     @Override

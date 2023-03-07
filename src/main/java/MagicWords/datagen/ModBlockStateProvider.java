@@ -3,11 +3,14 @@ package MagicWords.datagen;
 import MagicWords.MagicWords;
 import MagicWords.block.ModBlocks;
 import com.mojang.logging.LogUtils;
+import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -41,6 +44,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         saplingBlock(ModBlocks.DUSTY_SAPLING);
 
+        rotatableVariantBlock(ModBlocks.GLYPH_BLOCK, "block/glyph");
 
 
     }
@@ -58,5 +62,15 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     private void saplingBlock(RegistryObject<Block> blockRegistryObject){
         simpleBlock(blockRegistryObject.get(), models().cross(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath(), blockTexture(blockRegistryObject.get())).renderType("cutout"));
+    }
+
+    private void rotatableVariantBlock(RegistryObject<Block> blockRegistryObject, String model){
+        VariantBlockStateBuilder builder = getVariantBuilder(blockRegistryObject.get());
+
+        builder.partialState().with(HorizontalDirectionalBlock.FACING, Direction.NORTH).modelForState().modelFile(models().getExistingFile(new ResourceLocation("magicwords",model))).rotationY(0).addModel();
+        builder.partialState().with(HorizontalDirectionalBlock.FACING, Direction.EAST).modelForState().modelFile(models().getExistingFile(new ResourceLocation("magicwords",model))).rotationY(90).addModel();
+        builder.partialState().with(HorizontalDirectionalBlock.FACING, Direction.SOUTH).modelForState().modelFile(models().getExistingFile(new ResourceLocation("magicwords",model))).rotationY(180).addModel();
+        builder.partialState().with(HorizontalDirectionalBlock.FACING, Direction.WEST).modelForState().modelFile(models().getExistingFile(new ResourceLocation("magicwords",model))).rotationY(270).addModel();
+
     }
 }

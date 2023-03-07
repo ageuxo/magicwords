@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "magicwords:block/glyph",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "magicwords:block/glyph"
+    },
+    "facing=south": {
+      "model": "magicwords:block/glyph",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "magicwords:block/glyph",
+      "y": 270
+    }
+  }
+}
