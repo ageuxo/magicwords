@@ -1,5 +1,6 @@
 {
   "item.magicwords.chalk": "Chalk",
+  "item.magicwords.magic_chalk": "Magic Chalk",
 
   "block.magicwords.dummy_block": "Dummy Block",
   "block.magicwords.dummy_log_block": "Dummy Log Block",
@@ -12,5 +13,11 @@
   "block.magicwords.dusty_leaves": "Dusty Leaves",
   "block.magicwords.dusty_planks": "Dusty Planks",
 
-  "creativemodetab.magicwords_tab": "Magic Words"
+  "creativemodetab.magicwords_tab": "Magic Words",
+
+  "magicwords.glyph_a": "Alpha",
+  "magicwords.glyph_b": "Beta",
+  "magicwords.glyph_c": "Gamma",
+  "magicwords.glyph_d": "Delta",
+  "magicwords.glyph_e": "Epsilon"
 }

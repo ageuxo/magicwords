@@ -21,7 +21,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         simpleItem(ModItems.CHALK);
         saplingItem(ModBlocks.DUSTY_SAPLING);
-
+        handheldItem(ModItems.MAGIC_CHALK);
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item){

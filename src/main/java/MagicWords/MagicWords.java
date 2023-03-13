@@ -2,6 +2,7 @@ package MagicWords;
 
 
 import MagicWords.block.ModBlocks;
+import MagicWords.client.ClientConfig;
 import MagicWords.item.ModCreativeModeTab;
 import MagicWords.item.ModItems;
 import com.mojang.logging.LogUtils;
@@ -9,7 +10,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
@@ -36,6 +39,7 @@ public class MagicWords {
         modEventBus.addListener(this::addCreative);
 
 
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.GENERAL_SPEC);
 
     }
 

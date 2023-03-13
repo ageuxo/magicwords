@@ -1,6 +1,7 @@
 package MagicWords.item;
 
 import MagicWords.MagicWords;
+import MagicWords.item.custom.MagicWritingItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -12,6 +13,8 @@ public class ModItems {
 
     public static final RegistryObject<Item> CHALK = ITEMS.register("chalk",
             ()-> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MAGIC_CHALK = ITEMS.register("magic_chalk",
+            ()-> new MagicWritingItem(new Item.Properties()));
 
 
     public static void register(IEventBus eventBus){
