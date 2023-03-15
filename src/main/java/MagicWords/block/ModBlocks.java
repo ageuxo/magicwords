@@ -70,7 +70,7 @@ public class ModBlocks {
 
     public static RegistryObject<Block> DUSTY_SAPLING = registerBlock("dusty_sapling", ()-> new SaplingBlock(new DustyTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING).strength(2f)));
 
-    public static RegistryObject<Block> GLYPH_BLOCK = registerBlock("glyph", ()-> new GlyphBlock(BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noCollission().noOcclusion()));
+    public static RegistryObject<Block> GLYPH_BLOCK = registerBlock("glyph", ()-> new GlyphBlock(BlockBehaviour.Properties.of(Material.CLAY).instabreak().noCollission().noOcclusion()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

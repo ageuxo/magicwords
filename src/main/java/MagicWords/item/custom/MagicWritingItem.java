@@ -1,6 +1,9 @@
 package MagicWords.item.custom;
 
+import MagicWords.block.ModBlocks;
+import MagicWords.block.custom.GlyphBlock;
 import com.mojang.logging.LogUtils;
+import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -46,6 +49,12 @@ public class MagicWritingItem extends Item {
 //        } else {
 //            LOGGER.debug("Server DMG: " + stack.getDamageValue());
 //        }
+
+        if (context.getClickedFace() == Direction.UP || context.getClickedFace() == Direction.DOWN){
+            return InteractionResult.FAIL;
+        } else {
+            context.getLevel().setBlockAndUpdate(context.getClickedPos().relative(context.getClickedFace()), ModBlocks.GLYPH_BLOCK.get().defaultBlockState().setValue(GlyphBlock.FACING, context.getClickedFace() ));
+        }
         return InteractionResult.FAIL;
     }
 
