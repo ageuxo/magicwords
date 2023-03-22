@@ -1,8 +1,10 @@
 package MagicWords.block;
 
 import MagicWords.MagicWords;
+import MagicWords.block.custom.ConnectingFaceBlock;
 import MagicWords.block.custom.GlyphBlock;
 import MagicWords.block.custom.ModFlammableRotatedPillarBlock;
+import MagicWords.block.custom.ModDirectionalBlock;
 import MagicWords.item.ModItems;
 import MagicWords.worldgen.tree.DustyTreeGrower;
 import net.minecraft.core.BlockPos;
@@ -71,6 +73,10 @@ public class ModBlocks {
     public static RegistryObject<Block> DUSTY_SAPLING = registerBlock("dusty_sapling", ()-> new SaplingBlock(new DustyTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING).strength(2f)));
 
     public static RegistryObject<Block> GLYPH_BLOCK = registerBlock("glyph", ()-> new GlyphBlock(BlockBehaviour.Properties.of(Material.CLAY).instabreak().noCollission().noOcclusion()));
+
+    public static RegistryObject<Block> HORIZ_FACE = registerBlock("horiz_face", ()-> new ModDirectionalBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3f)));
+
+    public static RegistryObject<Block> CONNECTING_FACE_BLOCK = registerBlock("connecting_face_block", ()-> new ConnectingFaceBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

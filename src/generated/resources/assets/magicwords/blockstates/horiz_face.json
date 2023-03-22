@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "magicwords:block/horiz_face",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "magicwords:block/horiz_face",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "magicwords:block/horiz_face",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "magicwords:block/horiz_face",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "magicwords:block/horiz_face"
+    },
+    "facing=west": {
+      "model": "magicwords:block/horiz_face",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

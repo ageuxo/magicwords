@@ -1,0 +1,6 @@
+{
+  "parent": "magicwords:block/connecting_block",
+  "textures": {
+    "1": "magicwords:block/connecting/connecting_block_all"
+  }
+}

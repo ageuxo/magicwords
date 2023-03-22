@@ -1,0 +1,420 @@
+{
+  "variants": {
+    "connecting=all,facing=down": {
+      "model": "magicwords:block/connecting_block_all",
+      "x": 180
+    },
+    "connecting=all,facing=east": {
+      "model": "magicwords:block/connecting_block_all",
+      "x": 90,
+      "y": 90
+    },
+    "connecting=all,facing=north": {
+      "model": "magicwords:block/connecting_block_all",
+      "x": 90
+    },
+    "connecting=all,facing=south": {
+      "model": "magicwords:block/connecting_block_all",
+      "x": 90,
+      "y": 180
+    },
+    "connecting=all,facing=up": {
+      "model": "magicwords:block/connecting_block_all"
+    },
+    "connecting=all,facing=west": {
+      "model": "magicwords:block/connecting_block_all",
+      "x": 90,
+      "y": 270
+    },
+    "connecting=east,facing=down": {
+      "model": "magicwords:block/connecting_block_single_east",
+      "x": 180
+    },
+    "connecting=east,facing=east": {
+      "model": "magicwords:block/connecting_block_single_east",
+      "x": 90,
+      "y": 90
+    },
+    "connecting=east,facing=north": {
+      "model": "magicwords:block/connecting_block_single_east",
+      "x": 90
+    },
+    "connecting=east,facing=south": {
+      "model": "magicwords:block/connecting_block_single_east",
+      "x": 90,
+      "y": 180
+    },
+    "connecting=east,facing=up": {
+      "model": "magicwords:block/connecting_block_single_east"
+    },
+    "connecting=east,facing=west": {
+      "model": "magicwords:block/connecting_block_single_east",
+      "x": 90,
+      "y": 270
+    },
+    "connecting=east_south_west,facing=down": {
+      "model": "magicwords:block/connecting_block_t_east_south_west",
+      "x": 180
+    },
+    "connecting=east_south_west,facing=east": {
+      "model": "magicwords:block/connecting_block_t_east_south_west",
+      "x": 90,
+      "y": 90
+    },
+    "connecting=east_south_west,facing=north": {
+      "model": "magicwords:block/connecting_block_t_east_south_west",
+      "x": 90
+    },
+    "connecting=east_south_west,facing=south": {
+      "model": "magicwords:block/connecting_block_t_east_south_west",
+      "x": 90,
+      "y": 180
+    },
+    "connecting=east_south_west,facing=up": {
+      "model": "magicwords:block/connecting_block_t_east_south_west"
+    },
+    "connecting=east_south_west,facing=west": {
+      "model": "magicwords:block/connecting_block_t_east_south_west",
+      "x": 90,
+      "y": 270
+    },
+    "connecting=east_west,facing=down": {
+      "model": "magicwords:block/connecting_block_straight_east_west",
+      "x": 180
+    },
+    "connecting=east_west,facing=east": {
+      "model": "magicwords:block/connecting_block_straight_east_west",
+      "x": 90,
+      "y": 90
+    },
+    "connecting=east_west,facing=north": {
+      "model": "magicwords:block/connecting_block_straight_east_west",
+      "x": 90
+    },
+    "connecting=east_west,facing=south": {
+      "model": "magicwords:block/connecting_block_straight_east_west",
+      "x": 90,
+      "y": 180
+    },
+    "connecting=east_west,facing=up": {
+      "model": "magicwords:block/connecting_block_straight_east_west"
+    },
+    "connecting=east_west,facing=west": {
+      "model": "magicwords:block/connecting_block_straight_east_west",
+      "x": 90,
+      "y": 270
+    },
+    "connecting=none,facing=down": {
+      "model": "magicwords:block/connecting_block",
+      "x": 180
+    },
+    "connecting=none,facing=east": {
+      "model": "magicwords:block/connecting_block",
+      "x": 90,
+      "y": 90
+    },
+    "connecting=none,facing=north": {
+      "model": "magicwords:block/connecting_block",
+      "x": 90
+    },
+    "connecting=none,facing=south": {
+      "model": "magicwords:block/connecting_block",
+      "x": 90,
+      "y": 180
+    },
+    "connecting=none,facing=up": {
+      "model": "magicwords:block/connecting_block"
+    },
+    "connecting=none,facing=west": {
+      "model": "magicwords:block/connecting_block",
+      "x": 90,
+      "y": 270
+    },
+    "connecting=north,facing=down": {
+      "model": "magicwords:block/connecting_block_single_north",
+      "x": 180
+    },
+    "connecting=north,facing=east": {
+      "model": "magicwords:block/connecting_block_single_north",
+      "x": 90,
+      "y": 90
+    },
+    "connecting=north,facing=north": {
+      "model": "magicwords:block/connecting_block_single_north",
+      "x": 90
+    },
+    "connecting=north,facing=south": {
+      "model": "magicwords:block/connecting_block_single_north",
+      "x": 90,
+      "y": 180
+    },
+    "connecting=north,facing=up": {
+      "model": "magicwords:block/connecting_block_single_north"
+    },
+    "connecting=north,facing=west": {
+      "model": "magicwords:block/connecting_block_single_north",
+      "x": 90,
+      "y": 270
+    },
+    "connecting=north_east,facing=down": {
+      "model": "magicwords:block/connecting_block_corner_north_east",
+      "x": 180
+    },
+    "connecting=north_east,facing=east": {
+      "model": "magicwords:block/connecting_block_corner_north_east",
+      "x": 90,
+      "y": 90
+    },
+    "connecting=north_east,facing=north": {
+      "model": "magicwords:block/connecting_block_corner_north_east",
+      "x": 90
+    },
+    "connecting=north_east,facing=south": {
+      "model": "magicwords:block/connecting_block_corner_north_east",
+      "x": 90,
+      "y": 180
+    },
+    "connecting=north_east,facing=up": {
+      "model": "magicwords:block/connecting_block_corner_north_east"
+    },
+    "connecting=north_east,facing=west": {
+      "model": "magicwords:block/connecting_block_corner_north_east",
+      "x": 90,
+      "y": 270
+    },
+    "connecting=north_east_south,facing=down": {
+      "model": "magicwords:block/connecting_block_t_north_east_south",
+      "x": 180
+    },
+    "connecting=north_east_south,facing=east": {
+      "model": "magicwords:block/connecting_block_t_north_east_south",
+      "x": 90,
+      "y": 90
+    },
+    "connecting=north_east_south,facing=north": {
+      "model": "magicwords:block/connecting_block_t_north_east_south",
+      "x": 90
+    },
+    "connecting=north_east_south,facing=south": {
+      "model": "magicwords:block/connecting_block_t_north_east_south",
+      "x": 90,
+      "y": 180
+    },
+    "connecting=north_east_south,facing=up": {
+      "model": "magicwords:block/connecting_block_t_north_east_south"
+    },
+    "connecting=north_east_south,facing=west": {
+      "model": "magicwords:block/connecting_block_t_north_east_south",
+      "x": 90,
+      "y": 270
+    },
+    "connecting=north_east_west,facing=down": {
+      "model": "magicwords:block/connecting_block_t_north_east_west",
+      "x": 180
+    },
+    "connecting=north_east_west,facing=east": {
+      "model": "magicwords:block/connecting_block_t_north_east_west",
+      "x": 90,
+      "y": 90
+    },
+    "connecting=north_east_west,facing=north": {
+      "model": "magicwords:block/connecting_block_t_north_east_west",
+      "x": 90
+    },
+    "connecting=north_east_west,facing=south": {
+      "model": "magicwords:block/connecting_block_t_north_east_west",
+      "x": 90,
+      "y": 180
+    },
+    "connecting=north_east_west,facing=up": {
+      "model": "magicwords:block/connecting_block_t_north_east_west"
+    },
+    "connecting=north_east_west,facing=west": {
+      "model": "magicwords:block/connecting_block_t_north_east_west",
+      "x": 90,
+      "y": 270
+    },
+    "connecting=north_south,facing=down": {
+      "model": "magicwords:block/connecting_block_straight_north_south",
+      "x": 180
+    },
+    "connecting=north_south,facing=east": {
+      "model": "magicwords:block/connecting_block_straight_north_south",
+      "x": 90,
+      "y": 90
+    },
+    "connecting=north_south,facing=north": {
+      "model": "magicwords:block/connecting_block_straight_north_south",
+      "x": 90
+    },
+    "connecting=north_south,facing=south": {
+      "model": "magicwords:block/connecting_block_straight_north_south",
+      "x": 90,
+      "y": 180
+    },
+    "connecting=north_south,facing=up": {
+      "model": "magicwords:block/connecting_block_straight_north_south"
+    },
+    "connecting=north_south,facing=west": {
+      "model": "magicwords:block/connecting_block_straight_north_south",
+      "x": 90,
+      "y": 270
+    },
+    "connecting=north_south_west,facing=down": {
+      "model": "magicwords:block/connecting_block_t_north_south_west",
+      "x": 180
+    },
+    "connecting=north_south_west,facing=east": {
+      "model": "magicwords:block/connecting_block_t_north_south_west",
+      "x": 90,
+      "y": 90
+    },
+    "connecting=north_south_west,facing=north": {
+      "model": "magicwords:block/connecting_block_t_north_south_west",
+      "x": 90
+    },
+    "connecting=north_south_west,facing=south": {
+      "model": "magicwords:block/connecting_block_t_north_south_west",
+      "x": 90,
+      "y": 180
+    },
+    "connecting=north_south_west,facing=up": {
+      "model": "magicwords:block/connecting_block_t_north_south_west"
+    },
+    "connecting=north_south_west,facing=west": {
+      "model": "magicwords:block/connecting_block_t_north_south_west",
+      "x": 90,
+      "y": 270
+    },
+    "connecting=north_west,facing=down": {
+      "model": "magicwords:block/connecting_block_corner_north_west",
+      "x": 180
+    },
+    "connecting=north_west,facing=east": {
+      "model": "magicwords:block/connecting_block_corner_north_west",
+      "x": 90,
+      "y": 90
+    },
+    "connecting=north_west,facing=north": {
+      "model": "magicwords:block/connecting_block_corner_north_west",
+      "x": 90
+    },
+    "connecting=north_west,facing=south": {
+      "model": "magicwords:block/connecting_block_corner_north_west",
+      "x": 90,
+      "y": 180
+    },
+    "connecting=north_west,facing=up": {
+      "model": "magicwords:block/connecting_block_corner_north_west"
+    },
+    "connecting=north_west,facing=west": {
+      "model": "magicwords:block/connecting_block_corner_north_west",
+      "x": 90,
+      "y": 270
+    },
+    "connecting=south,facing=down": {
+      "model": "magicwords:block/connecting_block_single_south",
+      "x": 180
+    },
+    "connecting=south,facing=east": {
+      "model": "magicwords:block/connecting_block_single_south",
+      "x": 90,
+      "y": 90
+    },
+    "connecting=south,facing=north": {
+      "model": "magicwords:block/connecting_block_single_south",
+      "x": 90
+    },
+    "connecting=south,facing=south": {
+      "model": "magicwords:block/connecting_block_single_south",
+      "x": 90,
+      "y": 180
+    },
+    "connecting=south,facing=up": {
+      "model": "magicwords:block/connecting_block_single_south"
+    },
+    "connecting=south,facing=west": {
+      "model": "magicwords:block/connecting_block_single_south",
+      "x": 90,
+      "y": 270
+    },
+    "connecting=south_east,facing=down": {
+      "model": "magicwords:block/connecting_block_corner_south_east",
+      "x": 180
+    },
+    "connecting=south_east,facing=east": {
+      "model": "magicwords:block/connecting_block_corner_south_east",
+      "x": 90,
+      "y": 90
+    },
+    "connecting=south_east,facing=north": {
+      "model": "magicwords:block/connecting_block_corner_south_east",
+      "x": 90
+    },
+    "connecting=south_east,facing=south": {
+      "model": "magicwords:block/connecting_block_corner_south_east",
+      "x": 90,
+      "y": 180
+    },
+    "connecting=south_east,facing=up": {
+      "model": "magicwords:block/connecting_block_corner_south_east"
+    },
+    "connecting=south_east,facing=west": {
+      "model": "magicwords:block/connecting_block_corner_south_east",
+      "x": 90,
+      "y": 270
+    },
+    "connecting=south_west,facing=down": {
+      "model": "magicwords:block/connecting_block_corner_south_west",
+      "x": 180
+    },
+    "connecting=south_west,facing=east": {
+      "model": "magicwords:block/connecting_block_corner_south_west",
+      "x": 90,
+      "y": 90
+    },
+    "connecting=south_west,facing=north": {
+      "model": "magicwords:block/connecting_block_corner_south_west",
+      "x": 90
+    },
+    "connecting=south_west,facing=south": {
+      "model": "magicwords:block/connecting_block_corner_south_west",
+      "x": 90,
+      "y": 180
+    },
+    "connecting=south_west,facing=up": {
+      "model": "magicwords:block/connecting_block_corner_south_west"
+    },
+    "connecting=south_west,facing=west": {
+      "model": "magicwords:block/connecting_block_corner_south_west",
+      "x": 90,
+      "y": 270
+    },
+    "connecting=west,facing=down": {
+      "model": "magicwords:block/connecting_block_single_west",
+      "x": 180
+    },
+    "connecting=west,facing=east": {
+      "model": "magicwords:block/connecting_block_single_west",
+      "x": 90,
+      "y": 90
+    },
+    "connecting=west,facing=north": {
+      "model": "magicwords:block/connecting_block_single_west",
+      "x": 90
+    },
+    "connecting=west,facing=south": {
+      "model": "magicwords:block/connecting_block_single_west",
+      "x": 90,
+      "y": 180
+    },
+    "connecting=west,facing=up": {
+      "model": "magicwords:block/connecting_block_single_west"
+    },
+    "connecting=west,facing=west": {
+      "model": "magicwords:block/connecting_block_single_west",
+      "x": 90,
+      "y": 270
+    }
+  }
+}
