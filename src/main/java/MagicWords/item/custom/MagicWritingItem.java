@@ -8,6 +8,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.block.state.BlockState;
 import org.slf4j.Logger;
 
 public class MagicWritingItem extends Item {
@@ -50,10 +51,13 @@ public class MagicWritingItem extends Item {
 //            LOGGER.debug("Server DMG: " + stack.getDamageValue());
 //        }
 
-        if (context.getClickedFace() == Direction.UP || context.getClickedFace() == Direction.DOWN){
-            return InteractionResult.FAIL;
-        } else {
-            context.getLevel().setBlockAndUpdate(context.getClickedPos().relative(context.getClickedFace()), ModBlocks.GLYPH_BLOCK.get().defaultBlockState().setValue(GlyphBlock.FACING, context.getClickedFace() ));
+        BlockState state = context.getLevel().getBlockState(context.getClickedPos());
+        if (state.isFaceSturdy(context.getLevel(), context.getClickedPos(), context.getClickedFace())){
+            if (context.getClickedFace() == Direction.UP || context.getClickedFace() == Direction.DOWN) {
+                return InteractionResult.FAIL;
+            } else {
+                context.getLevel().setBlockAndUpdate(context.getClickedPos().relative(context.getClickedFace()), ModBlocks.GLYPH_BLOCK.get().defaultBlockState().setValue(GlyphBlock.FACING, context.getClickedFace()));
+            }
         }
         return InteractionResult.FAIL;
     }
