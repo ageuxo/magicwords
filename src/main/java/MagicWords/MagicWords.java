@@ -20,6 +20,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
+import java.util.Arrays;
+
 @Mod(MagicWords.MODID)
 public class MagicWords {
     public static final String MODID = "magicwords";
@@ -51,11 +53,15 @@ public class MagicWords {
         if (event.getTab() == ModCreativeModeTab.MAGICWORDS_TAB){
             RegistryObject[] itemRegistryArray = ModItems.ITEMS.getEntries().toArray(new RegistryObject[0]);
             for (RegistryObject i: itemRegistryArray ) {
-                event.accept(i);
+                if ( !Arrays.asList(ClientConfig.creativeTabExcludeList).contains(i.getId().toString()) ) {
+                    event.accept(i);
+                }
             }
             RegistryObject[] blockRegistryArray = ModBlocks.BLOCKS.getEntries().toArray(new RegistryObject[0]);
             for (RegistryObject i: blockRegistryArray ) {
-                event.accept(i);
+                if ( !Arrays.asList(ClientConfig.creativeTabExcludeList).contains(i.getId().toString()) ) {
+                    event.accept(i);
+                }
             }
         }
     }
