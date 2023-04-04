@@ -3,7 +3,6 @@ package MagicWords.item.custom;
 import MagicWords.block.ModBlocks;
 import MagicWords.block.custom.GlyphBlock;
 import com.mojang.logging.LogUtils;
-import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -53,11 +52,11 @@ public class MagicWritingItem extends Item {
 
         BlockState state = context.getLevel().getBlockState(context.getClickedPos());
         if (state.isFaceSturdy(context.getLevel(), context.getClickedPos(), context.getClickedFace())){
-            if (context.getClickedFace() == Direction.UP || context.getClickedFace() == Direction.DOWN) {
-                return InteractionResult.FAIL;
-            } else {
-                context.getLevel().setBlockAndUpdate(context.getClickedPos().relative(context.getClickedFace()), ModBlocks.GLYPH_BLOCK.get().defaultBlockState().setValue(GlyphBlock.FACING, context.getClickedFace()));
-            }
+            boolean isClickedHorizontal = context.getClickedFace().getAxis().isHorizontal();
+            context.getLevel().setBlockAndUpdate(context.getClickedPos().relative(context.getClickedFace()), ModBlocks.GLYPH_BLOCK.get().defaultBlockState()
+                    .setValue(GlyphBlock.FACING, isClickedHorizontal ? context.getClickedFace() : context.getHorizontalDirection().getOpposite() )
+                    .setValue(GlyphBlock.IS_FLAT, !isClickedHorizontal) );
+
         }
         return InteractionResult.FAIL;
     }

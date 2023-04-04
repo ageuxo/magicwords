@@ -3,12 +3,12 @@ package MagicWords.datagen;
 import MagicWords.MagicWords;
 import MagicWords.block.ModBlocks;
 import MagicWords.block.custom.ConnectingFaceBlock;
+import MagicWords.block.custom.GlyphBlock;
 import MagicWords.block.state.ConnectingFaceShape;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -49,11 +49,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         saplingBlock(ModBlocks.DUSTY_SAPLING);
 
-        rotatableVariantBlock(ModBlocks.GLYPH_BLOCK, "block/glyph");
+        glyphBlock(ModBlocks.GLYPH_BLOCK, "block/glyph");
 
         directionalBlock(ModBlocks.HORIZ_FACE.get(), models().getExistingFile(new ResourceLocation("magicwords","block/horiz_face")));
         connectingBlock(ModBlocks.CONNECTING_FACE_BLOCK, "connecting_block");
-        simpleBlockItem(ModBlocks.CONNECTING_FACE_BLOCK.get(), models().withExistingParent("magicwords:connecting_block", "magicwords:block/connecting/connecting_block"));
+        simpleBlockItem(ModBlocks.CONNECTING_FACE_BLOCK.get(), itemModels().getExistingFile(modLoc("block/connecting_block")) );
 
 
     }
@@ -73,13 +73,19 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlock(blockRegistryObject.get(), models().cross(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath(), blockTexture(blockRegistryObject.get())).renderType("cutout"));
     }
 
-    private void rotatableVariantBlock(RegistryObject<Block> blockRegistryObject, String model){
+    private void glyphBlock(RegistryObject<Block> blockRegistryObject, String model){
         VariantBlockStateBuilder builder = getVariantBuilder(blockRegistryObject.get());
 
-        builder.partialState().with(HorizontalDirectionalBlock.FACING, Direction.NORTH).modelForState().modelFile(models().getExistingFile(new ResourceLocation("magicwords",model))).rotationY(0).addModel();
-        builder.partialState().with(HorizontalDirectionalBlock.FACING, Direction.EAST).modelForState().modelFile(models().getExistingFile(new ResourceLocation("magicwords",model))).rotationY(90).addModel();
-        builder.partialState().with(HorizontalDirectionalBlock.FACING, Direction.SOUTH).modelForState().modelFile(models().getExistingFile(new ResourceLocation("magicwords",model))).rotationY(180).addModel();
-        builder.partialState().with(HorizontalDirectionalBlock.FACING, Direction.WEST).modelForState().modelFile(models().getExistingFile(new ResourceLocation("magicwords",model))).rotationY(270).addModel();
+        builder.forAllStates(state -> {
+            Direction facing = state.getValue(GlyphBlock.FACING);
+
+
+            return ConfiguredModel.builder()
+                    .modelFile(models().getExistingFile(new ResourceLocation("magicwords",model)))
+                    .rotationY( (int)  facing.getOpposite().toYRot() )
+                    .rotationX(state.getValue(GlyphBlock.IS_FLAT) ? -90 : 0)
+                    .build();
+        });
 
     }
 
