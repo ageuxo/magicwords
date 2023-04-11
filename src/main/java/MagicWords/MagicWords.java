@@ -2,10 +2,14 @@ package MagicWords;
 
 
 import MagicWords.block.ModBlocks;
+import MagicWords.block.entity.ModBlockEntities;
 import MagicWords.client.ClientConfig;
 import MagicWords.item.ModCreativeModeTab;
 import MagicWords.item.ModItems;
+import MagicWords.screen.AssemblyBlockScreen;
+import MagicWords.screen.ModMenuTypes;
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -33,6 +37,8 @@ public class MagicWords {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
 
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
@@ -72,7 +78,9 @@ public class MagicWords {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event){
-
+            event.enqueueWork(
+                    ()-> MenuScreens.register(ModMenuTypes.ASSEMBLY_BLOCK_MENU.get(), AssemblyBlockScreen::new)
+            );
         }
         @SubscribeEvent
         public static void onLoadFinished(FMLLoadCompleteEvent event){
