@@ -26,7 +26,7 @@ public class AssemblyBlockMenu extends AbstractContainerMenu {
 
     public AssemblyBlockMenu(int id, Inventory inv, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.ASSEMBLY_BLOCK_MENU.get(), id);
-        checkContainerSize(inv, 3);
+        checkContainerSize(inv, 5);
         blockEntity = (AssemblyBlockEntity) entity;
         this.level = inv.player.level;
         this.data = data;
@@ -35,9 +35,11 @@ public class AssemblyBlockMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            this.addSlot(new SlotItemHandler(handler, 0, 56, 17));
-            this.addSlot(new SlotItemHandler(handler, 1, 56, 53));
-            this.addSlot(new SlotItemHandler(handler, 2, 116, 35));
+            this.addSlot(new SlotItemHandler(handler, 0, 46, 17));
+            this.addSlot(new SlotItemHandler(handler, 1, 66, 17));
+            this.addSlot(new SlotItemHandler(handler, 2, 56, 53));
+            this.addSlot(new SlotItemHandler(handler, 3, 106, 35));
+            this.addSlot(new SlotItemHandler(handler, 4, 126, 35));
         });
 
         addDataSlots(data);
@@ -53,6 +55,10 @@ public class AssemblyBlockMenu extends AbstractContainerMenu {
         int progressArrowSize = 26;
 
         return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
+    }
+
+    public int getCurrentProgress(){
+        return this.data.get(0);
     }
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
@@ -71,7 +77,7 @@ public class AssemblyBlockMenu extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 3;  // must be the number of slots you have!
+    private static final int TE_INVENTORY_SLOT_COUNT = 5;  // must be the number of slots you have!
 
     @Override
     @ParametersAreNonnullByDefault

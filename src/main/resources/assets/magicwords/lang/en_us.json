@@ -12,10 +12,13 @@
   "block.magicwords.dusty_sapling": "Dusty Sapling",
   "block.magicwords.dusty_leaves": "Dusty Leaves",
   "block.magicwords.dusty_planks": "Dusty Planks",
+  "block.magicwords.assembly_block": "Assembly Block",
 
   "block.magicwords.connecting_face_block": "Connecting Block",
 
   "creativemodetab.magicwords_tab": "Magic Words",
+
+  "gui.magicwords.assembly_block.name": "Assembly Block",
 
   "magicwords.glyph_a": "Alpha",
   "magicwords.glyph_b": "Beta",

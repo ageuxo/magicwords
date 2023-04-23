@@ -55,6 +55,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         connectingBlock(ModBlocks.CONNECTING_FACE_BLOCK, "connecting_block");
         simpleBlockItem(ModBlocks.CONNECTING_FACE_BLOCK.get(), itemModels().getExistingFile(modLoc("block/connecting_block")) );
 
+        blockWithItem(ModBlocks.ASSEMBLY_BLOCK);
+
 
     }
 

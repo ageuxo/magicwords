@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 public class AssemblyBlockScreen extends AbstractContainerScreen<AssemblyBlockMenu> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(MagicWords.MODID,"textures/gui/assembly_block_gui.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(MagicWords.MODID,"textures/gui/container/assembly_block_gui.png");
 
 
     public AssemblyBlockScreen(AssemblyBlockMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
@@ -55,5 +55,6 @@ public class AssemblyBlockScreen extends AbstractContainerScreen<AssemblyBlockMe
 
     private void renderMouseCoords(PoseStack poseStack, int mouseX, int mouseY){
         drawString(poseStack, Minecraft.getInstance().font, mouseX + ":" + mouseY, width-50, height-10, 500);
+        drawString(poseStack, Minecraft.getInstance().font, "Scaled: " + menu.getScaledProgress() + " Progress: " + menu.getCurrentProgress(), width-120, height-30, 500);
     }
 }

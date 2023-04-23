@@ -1,6 +1,9 @@
 package MagicWords.block.entity;
 
-import MagicWords.item.ModItems;
+import MagicWords.item.crafting.AssemblyRecipe;
+import MagicWords.item.crafting.ModRecipes;
+import MagicWords.item.crafting.StackIngredient;
+import MagicWords.misc.SimpleMachineContainer;
 import MagicWords.screen.AssemblyBlockMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,6 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AssemblyBlockEntity extends BlockEntity implements MenuProvider {
-    private final ItemStackHandler itemHandler = new ItemStackHandler(3){
+    private final ItemStackHandler itemHandler = new ItemStackHandler(5){
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -36,12 +40,30 @@ public class AssemblyBlockEntity extends BlockEntity implements MenuProvider {
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
     protected final ContainerData data;
+    private static final RecipeManager.CachedCheck<SimpleMachineContainer, AssemblyRecipe> quickCheck = RecipeManager.createCheck(ModRecipes.Types.ASSEMBLY_RECIPE_TYPE.get());
     private int progress = 0;
     private int maxProgress = 100;
+    private final int inputSlotCount;
+    private final int extraSlotCount;
+    private final int outputSlotCount;
 
+    private AssemblyRecipe currentRecipe;
+
+    private static final int DEFAULT_INPUT_SIZE = 2;
+    private static final int DEFAULT_EXTRA_SIZE = 1;
+    private static final int DEFAULT_OUTPUT_SIZE = 2;
 
     public AssemblyBlockEntity(BlockPos pPos, BlockState pBlockState) {
+        this(pPos, pBlockState, DEFAULT_INPUT_SIZE, DEFAULT_EXTRA_SIZE, DEFAULT_OUTPUT_SIZE);
+    }
+
+    public AssemblyBlockEntity(BlockPos pPos, BlockState pBlockState, int inputSize, int extraSize, int outputSize) {
         super(ModBlockEntities.ASSEMBLY_BLOCK_ENTITY.get(), pPos, pBlockState);
+
+        this.inputSlotCount = inputSize;
+        this.extraSlotCount = extraSize;
+        this.outputSlotCount = outputSize;
+
         this.data = new ContainerData() {
             @Override
             public int get(int pIndex) {
@@ -70,7 +92,7 @@ public class AssemblyBlockEntity extends BlockEntity implements MenuProvider {
 
     @Override
     public @NotNull Component getDisplayName() {
-        return Component.literal("Assembly thingie");
+        return Component.translatable("gui.magicwords.assembly_block.name");
     }
 
     @Nullable
@@ -147,28 +169,119 @@ public class AssemblyBlockEntity extends BlockEntity implements MenuProvider {
 
     private static void craftItem(AssemblyBlockEntity entity) {
         if (hasRecipe(entity)){
-            entity.itemHandler.extractItem(0, 1, false);
-            entity.itemHandler.setStackInSlot(2, new ItemStack(ModItems.CHALK.get(), entity.itemHandler.getStackInSlot(2).getCount() + 1));
+            SimpleMachineContainer container = new SimpleMachineContainer(entity.inputSlotCount, entity.extraSlotCount, entity.outputSlotCount);
+            // Copy over inventory
+            for (int i = 0; i < entity.itemHandler.getSlots(); i++){
+                container.setItem(i, entity.itemHandler.getStackInSlot(i));
+            }
+//            entity.itemHandler.extractItem(0, 1, false);
+//            entity.itemHandler.setStackInSlot(2, new ItemStack(ModItems.CHALK.get(), entity.itemHandler.getStackInSlot(2).getCount() + 1));
+            int counter = 0;
+            for (StackIngredient ingredient : entity.currentRecipe.getStackIngredients()){
+            /*    ItemStack ingStack;
+                for (int index : container.getInputSlots()){
+                    if (ingredient.getRecipeType() == StackIngredient.Type.STACK){
+                        if (ItemStack.matches(ingredient.getStack(), container.getItem(index))){
+                            ingStack = entity.itemHandler.extractItem(index, ingredient.getStack().getCount(), false);
+                            entity.resetProgress();
+                            counter++;
+                            if (ingStack.isEmpty()){
+                                break;
+                            }
+                        } else if (container.getItem(index).getItem() == ingredient.getStack().getItem() && ingredient.getStack().getCount() <= container.getItem(index).getCount()){
+                            ingStack = entity.itemHandler.extractItem(index, ingredient.getStack().getCount(), false);
+                            entity.resetProgress();
+                            counter++;
+                            if (ingStack.isEmpty()){
+                                break;
+                            }
+                        }
+                    } else {
+                        if (container.getItem(index).getCount() >= ingredient.getCount() && container.getItem(index).getTags().anyMatch(tagKey -> tagKey.equals(ingredient.getTagKey())) ){
+                            ingStack = entity.itemHandler.extractItem(index, ingredient.getCount(), false);
+                            entity.resetProgress();
+                            counter++;
+                            if (ingStack.isEmpty()){
+                                break;
+                            }
+                        }
+                    }
+                }*/
+
+                int keepCount = 0;
+                for (int index : container.getInputSlots() ) {
+                    ItemStack stack = container.getItem(index);
+                    if (ingredient.getRecipeType() == StackIngredient.Type.STACK ){
+                        if (ItemStack.matches(stack, ingredient.getStack()) || (stack.is(ingredient.getStack().getItem())) ) {
+                            if (stack.getCount() >= ingredient.getCount() || (stack.getCount() + keepCount) >= ingredient.getCount()){
+                                entity.itemHandler.extractItem(index, ingredient.getCount(), false);
+                                entity.resetProgress();
+                                counter++;
+                                break;
+                            } else{
+                                keepCount = entity.itemHandler.extractItem(index, ingredient.getCount(), false).getCount() + keepCount;
+                            }
+                        }
+                    } else if (stack.getTags().anyMatch(tagKey -> tagKey.equals(ingredient.getTagKey()))){
+                        if (stack.getCount() >= ingredient.getCount() || (stack.getCount() + keepCount) >= ingredient.getCount()){
+                            entity.itemHandler.extractItem(index, ingredient.getCount(), false);
+                            entity.resetProgress();
+                            counter++;
+                            break;
+                        } else{
+                            keepCount = entity.itemHandler.extractItem(index, stack.getCount(), false).getCount() + keepCount;
+                        }
+                    }
+                }
+
+            }
+
+            // Output items, since we know there is enough space
+            if (counter >= entity.currentRecipe.getStackIngredients().size()){
+                ItemStack stack = entity.currentRecipe.getResultItem(entity.getLevel().registryAccess());
+                for (int outSlot : container.getOutputSlots()){
+                    stack = entity.itemHandler.insertItem(outSlot, stack, false);
+                    if (stack.isEmpty()){
+                        return;
+                    }
+                }
+            }
 
             entity.resetProgress();
         }
     }
 
     private static boolean hasRecipe(AssemblyBlockEntity entity) {
-        SimpleContainer container = new SimpleContainer(entity.itemHandler.getSlots());
+        SimpleMachineContainer container = new SimpleMachineContainer(entity.inputSlotCount, entity.extraSlotCount, entity.outputSlotCount);
+        // Copy over inventory
         for (int i = 0; i < entity.itemHandler.getSlots(); i++){
+
             container.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
-        boolean hasInput = entity.itemHandler.getStackInSlot(0).getItem() == ModItems.CHALK.get();
-        
-        return hasInput && canOutputAmount(container) && canOutputItemType(container, new ItemStack(ModItems.CHALK.get(), 1));
+        AssemblyRecipe recipe = quickCheck.getRecipeFor(container, entity.level).orElse(null);
+        if (recipe != null) {
+            entity.currentRecipe = recipe;
+            return recipe.matches(container, entity.level) && canOutput(container, recipe.getResultItem(entity.level.registryAccess()));
+        }
+        return false;
     }
 
-    private static boolean canOutputItemType(SimpleContainer container, ItemStack itemStack) {
-        return container.getItem(2).getItem() == itemStack.getItem() || container.getItem(2).isEmpty();
+    private static boolean canOutput(SimpleMachineContainer container, ItemStack recipeOutput){
+        for (int index : container.getOutputSlots()) {
+            if (container.canPlaceItem(index, recipeOutput)) {
+                if (container.getItem(index).isEmpty()) {
+                    return true;
+                } else if (container.getItem(index).getItem() == recipeOutput.getItem()) {
+                    if (container.getItem(index).getMaxStackSize() > container.getItem(index).getCount() + recipeOutput.getCount()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
-    private static boolean canOutputAmount(SimpleContainer container) {
-        return container.getItem(2).getMaxStackSize() > container.getItem(2).getCount();
+    private static boolean isFueled(){
+        return false;
     }
 }

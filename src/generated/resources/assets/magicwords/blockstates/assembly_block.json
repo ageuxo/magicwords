@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "magicwords:block/assembly_block"
+    }
+  }
+}
