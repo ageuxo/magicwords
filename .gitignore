@@ -26,3 +26,4 @@ forge*changelog.txt
 
 #Additions
 /src/modexample/
+/src/generated/resources/.cache/
