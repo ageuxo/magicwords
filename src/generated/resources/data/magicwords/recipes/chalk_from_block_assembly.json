@@ -1,0 +1,15 @@
+{
+  "type": "magicwords:assembly",
+  "ingredients": [
+    {
+      "stack_ingredient": {
+        "count": 2,
+        "item": "magicwords:chalk_block"
+      }
+    }
+  ],
+  "result": {
+    "count": 16,
+    "item": "magicwords:chalk"
+  }
+}

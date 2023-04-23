@@ -6,6 +6,7 @@ import MagicWords.block.entity.ModBlockEntities;
 import MagicWords.client.ClientConfig;
 import MagicWords.item.ModCreativeModeTab;
 import MagicWords.item.ModItems;
+import MagicWords.item.crafting.ModRecipes;
 import MagicWords.screen.AssemblyBlockScreen;
 import MagicWords.screen.ModMenuTypes;
 import com.mojang.logging.LogUtils;
@@ -39,6 +40,8 @@ public class MagicWords {
 
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+        ModRecipes.register(modEventBus);
+        ModRecipes.Types.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);

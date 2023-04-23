@@ -3,11 +3,14 @@ package MagicWords.datagen;
 import MagicWords.MagicWords;
 import MagicWords.block.ModBlocks;
 import MagicWords.item.ModItems;
+import MagicWords.item.crafting.ModRecipeBuilder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
@@ -22,6 +25,14 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         nineBlockStorageRecipes(consumer, RecipeCategory.BUILDING_BLOCKS, ModItems.CHALK.get(), RecipeCategory.MISC, ModBlocks.CHALK_BLOCK.get());
 
         //cookRecipes();
+
+        ModRecipeBuilder.AssemblyRecipeBuilder.builder(ModItems.CHALK.get(), 16)
+                .requires(ModBlocks.CHALK_BLOCK.get(), 2)
+                .save(consumer, new ResourceLocation(MagicWords.MODID, "chalk_from_block_assembly"));
+
+        ModRecipeBuilder.AssemblyRecipeBuilder.builder(ModBlocks.CONNECTING_FACE_BLOCK.get(), 4)
+                .requires(new TagKey<>(ForgeRegistries.ITEMS.getRegistryKey(), ResourceLocation.tryParse("forge:ingots/iron")), 4)
+                .save(consumer, new ResourceLocation(MagicWords.MODID, "connecting_face_block_from_iron_assembly"));
 
     }
 
