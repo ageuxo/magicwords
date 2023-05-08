@@ -2,6 +2,7 @@ package MagicWords.datagen;
 
 import MagicWords.MagicWords;
 import MagicWords.block.ModBlocks;
+import MagicWords.block.custom.AssemblyBlock;
 import MagicWords.block.custom.ConnectingFaceBlock;
 import MagicWords.block.custom.GlyphBlock;
 import MagicWords.block.state.ConnectingFaceShape;
@@ -11,10 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
+import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -55,7 +53,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         connectingBlock(ModBlocks.CONNECTING_FACE_BLOCK, "connecting_block");
         simpleBlockItem(ModBlocks.CONNECTING_FACE_BLOCK.get(), itemModels().getExistingFile(modLoc("block/connecting_block")) );
 
-        blockWithItem(ModBlocks.ASSEMBLY_BLOCK);
+        facingBlock(ModBlocks.ASSEMBLY_BLOCK);
+        simpleBlockItem(ModBlocks.ASSEMBLY_BLOCK.get(), itemModels().getExistingFile(modLoc("block/assembly_block")));
 
 
     }
@@ -73,6 +72,27 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     private void saplingBlock(RegistryObject<Block> blockRegistryObject){
         simpleBlock(blockRegistryObject.get(), models().cross(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath(), blockTexture(blockRegistryObject.get())).renderType("cutout"));
+    }
+
+    private void facingBlock(RegistryObject<Block> blockRegistryObject){
+        VariantBlockStateBuilder builder = getVariantBuilder(blockRegistryObject.get());
+        ResourceLocation baseTexture = blockTexture(blockRegistryObject.get());
+        BlockModelBuilder baseModel = models().cube(blockRegistryObject.getId().toString(),
+                baseTexture.withSuffix("_bottom"),
+                baseTexture.withSuffix("_top"),
+                baseTexture,
+                baseTexture.withSuffix("_back"),
+                baseTexture.withSuffix("_left"),
+                baseTexture.withSuffix("_right"));
+
+        builder.forAllStates(state -> {
+            Direction facing = state.getValue(AssemblyBlock.FACING);
+            return ConfiguredModel.builder()
+                    .modelFile(baseModel)
+                    .rotationY((int) facing.getOpposite().toYRot())
+                    .build();
+
+        });
     }
 
     private void glyphBlock(RegistryObject<Block> blockRegistryObject, String model){

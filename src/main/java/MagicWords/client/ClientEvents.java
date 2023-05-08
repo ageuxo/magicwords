@@ -1,6 +1,7 @@
 package MagicWords.client;
 
 import MagicWords.MagicWords;
+import MagicWords.client.gui.WritingHudOverlay;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

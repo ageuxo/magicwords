@@ -1,4 +1,4 @@
-package MagicWords.screen;
+package MagicWords.menus;
 
 import MagicWords.MagicWords;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -13,7 +13,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModMenuTypes {
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, MagicWords.MODID);
 
-    public static final RegistryObject<MenuType<AssemblyBlockMenu>> ASSEMBLY_BLOCK_MENU = registerMenuType(AssemblyBlockMenu::new, "assembly_block_menu");
+    public static final RegistryObject<MenuType<AbstractMachineMenu>> ASSEMBLY_BLOCK_MENU = registerMenuType(AssemblyBlockMenu::new, "assembly_block_menu");
 
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name){

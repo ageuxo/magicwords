@@ -2,6 +2,7 @@ package MagicWords.item.crafting;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class ModRecipeBuilder {
         private final ArrayList<ItemStack> ingredients = new ArrayList<>();
         private TagKey<Item> tagKey;
         private int ingredientCount;
+        private int energyCost;
 
         public AssemblyRecipeBuilder(ItemLike outItem, int outCount){
             this.result = outItem.asItem();
@@ -61,8 +64,13 @@ public class ModRecipeBuilder {
             return this;
         }
 
+        public AssemblyRecipeBuilder requiresEnergy(int energyCost){
+            this.energyCost = energyCost;
+            return this;
+        }
+
         @Override
-        public AssemblyRecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
+        public AssemblyRecipeBuilder unlockedBy(@NotNull String pCriterionName, @NotNull CriterionTriggerInstance pCriterionTrigger) {
             return null;
         }
 
@@ -72,12 +80,16 @@ public class ModRecipeBuilder {
         }
 
         @Override
-        public Item getResult() {
+        public @NotNull Item getResult() {
             return this.result;
         }
 
         public int getCount(){
             return this.count;
+        }
+
+        public int getEnergyCost(){
+            return this.energyCost;
         }
 
         public ArrayList<ItemStack> getIngredients() {
@@ -93,12 +105,12 @@ public class ModRecipeBuilder {
         }
 
         @Override
-        public void save(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ResourceLocation pRecipeId) {
+        public void save(@NotNull Consumer<FinishedRecipe> pFinishedRecipeConsumer, @NotNull ResourceLocation pRecipeId) {
 
             if (!getIngredients().isEmpty()){
-                pFinishedRecipeConsumer.accept(new AssemblyRecipeBuilder.Result(pRecipeId, this.getResult(), this.getCount(), this.getIngredients()));
+                pFinishedRecipeConsumer.accept(new AssemblyRecipeBuilder.Result(pRecipeId, this.getResult(), this.getCount(), this.getEnergyCost(), this.getIngredients()));
             } else if (getTagKey() != null){
-                pFinishedRecipeConsumer.accept(new AssemblyRecipeBuilder.Result(pRecipeId, this.getResult(), this.getCount(), this.getTagKey(), this.getIngredientCount()));
+                pFinishedRecipeConsumer.accept(new AssemblyRecipeBuilder.Result(pRecipeId, this.getResult(), this.getCount(), this.getEnergyCost(), this.getTagKey(), this.getIngredientCount()));
             } else {
                 throw new IllegalStateException("AssemblyRecipeBuilder with invalid result");
             }
@@ -112,26 +124,28 @@ public class ModRecipeBuilder {
             private final ArrayList<ItemStack> ingredients;
             private final TagKey<Item> tagKey;
             private final int tagIngrCount;
+            private final int energyCost;
 
-            public Result(ResourceLocation id, Item result, int resultCount, TagKey<Item> tagKey, int tagIngrCount) {
-                this(id, result, resultCount, null, tagKey, tagIngrCount);
+            public Result(ResourceLocation id, Item result, int resultCount, int energyCost, TagKey<Item> tagKey, int tagIngrCount) {
+                this(id, result, resultCount, energyCost, null, tagKey, tagIngrCount);
             }
 
-            public Result(ResourceLocation id, Item result, int resultCount, ArrayList<ItemStack> ingredients) {
-                this(id, result, resultCount, ingredients, null, 0);
+            public Result(ResourceLocation id, Item result, int resultCount, int energyCost, ArrayList<ItemStack> ingredients) {
+                this(id, result, resultCount, energyCost, ingredients, null, 0);
             }
 
-            public Result(ResourceLocation id, Item result, int resultCount, ArrayList<ItemStack> ingredients, TagKey<Item> tagKey, int tagIngrCount) {
+            public Result(ResourceLocation id, Item result, int resultCount, int energyCost, ArrayList<ItemStack> ingredients, TagKey<Item> tagKey, int tagIngrCount) {
                 this.id = id;
                 this.result = result;
                 this.count = resultCount;
                 this.ingredients = ingredients;
                 this.tagIngrCount = tagIngrCount;
                 this.tagKey = tagKey;
+                this.energyCost = energyCost;
             }
 
             @Override
-            public void serializeRecipeData(JsonObject pJson) {
+            public void serializeRecipeData(@NotNull JsonObject pJson) {
                 JsonArray jsonArray = new JsonArray();
 
                 if (this.ingredients != null && !this.ingredients.isEmpty()){
@@ -149,15 +163,16 @@ public class ModRecipeBuilder {
                 jsonObject.addProperty("count", this.count);
 
                 pJson.add("result", jsonObject);
+                pJson.add("energy_cost", new JsonPrimitive(this.energyCost));
             }
 
             @Override
-            public ResourceLocation getId() {
+            public @NotNull ResourceLocation getId() {
                 return this.id;
             }
 
             @Override
-            public RecipeSerializer<?> getType() {
+            public @NotNull RecipeSerializer<?> getType() {
                 return ModRecipes.ASSEMBLY_SERIALIZER.get();
             }
 

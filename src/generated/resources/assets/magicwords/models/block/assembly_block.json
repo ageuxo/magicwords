@@ -1,6 +1,11 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube",
   "textures": {
-    "all": "magicwords:block/assembly_block"
+    "down": "magicwords:block/assembly_block_bottom",
+    "east": "magicwords:block/assembly_block_left",
+    "north": "magicwords:block/assembly_block",
+    "south": "magicwords:block/assembly_block_back",
+    "up": "magicwords:block/assembly_block_top",
+    "west": "magicwords:block/assembly_block_right"
   }
 }

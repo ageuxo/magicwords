@@ -11,6 +11,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
@@ -21,17 +22,19 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
         nineBlockStorageRecipes(consumer, RecipeCategory.BUILDING_BLOCKS, ModItems.CHALK.get(), RecipeCategory.MISC, ModBlocks.CHALK_BLOCK.get());
 
         //cookRecipes();
 
         ModRecipeBuilder.AssemblyRecipeBuilder.builder(ModItems.CHALK.get(), 16)
                 .requires(ModBlocks.CHALK_BLOCK.get(), 2)
+                .requiresEnergy(16)
                 .save(consumer, new ResourceLocation(MagicWords.MODID, "chalk_from_block_assembly"));
 
         ModRecipeBuilder.AssemblyRecipeBuilder.builder(ModBlocks.CONNECTING_FACE_BLOCK.get(), 4)
                 .requires(new TagKey<>(ForgeRegistries.ITEMS.getRegistryKey(), ResourceLocation.tryParse("forge:ingots/iron")), 4)
+                .requiresEnergy(32)
                 .save(consumer, new ResourceLocation(MagicWords.MODID, "connecting_face_block_from_iron_assembly"));
 
     }

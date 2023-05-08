@@ -27,14 +27,15 @@ public class AssemblyRecipe implements Recipe<SimpleMachineContainer> {
     private final ResourceLocation id;
     private final ItemStack output;
     private final NonNullList<StackIngredient> recipeIngredients;
+    private final int energyCost;
     private static final Logger LOGGER = LogUtils.getLogger();
     protected static final ITagManager<Item> ITAG_MANAGER = ForgeRegistries.ITEMS.tags();
 
-    public AssemblyRecipe(ResourceLocation id, ItemStack output, NonNullList<StackIngredient> recipeIngredients){
+    public AssemblyRecipe(ResourceLocation id, ItemStack output, NonNullList<StackIngredient> recipeIngredients, int energyCost){
         this.id = id;
         this.output = output;
         this.recipeIngredients = recipeIngredients;
-
+        this.energyCost = energyCost;
     }
 
 
@@ -101,6 +102,10 @@ public class AssemblyRecipe implements Recipe<SimpleMachineContainer> {
         return this.recipeIngredients;
     }
 
+    public int getEnergyCost(){
+        return this.energyCost;
+    }
+
     public static class Type implements RecipeType<AssemblyRecipe>{
         private Type(){}
         public static final Type INSTANCE = new Type();
@@ -116,6 +121,8 @@ public class AssemblyRecipe implements Recipe<SimpleMachineContainer> {
 //            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
             ItemStack output = CraftingHelper.getItemStack(pSerializedRecipe.get("result").getAsJsonObject(), true);
 
+            int energyCost = pSerializedRecipe.get("energy_cost").getAsInt();
+
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
             NonNullList<StackIngredient> inputs = NonNullList.withSize(ingredients.size(), StackIngredient.EMPTY);
 
@@ -123,7 +130,7 @@ public class AssemblyRecipe implements Recipe<SimpleMachineContainer> {
                 inputs.set(i, new StackIngredient(ingredients.get(i).getAsJsonObject().get("stack_ingredient").getAsJsonObject()) );
             }
 
-            return new AssemblyRecipe(pRecipeId, output, inputs);
+            return new AssemblyRecipe(pRecipeId, output, inputs, energyCost);
         }
 
         @Override
@@ -135,7 +142,8 @@ public class AssemblyRecipe implements Recipe<SimpleMachineContainer> {
             }
 
             ItemStack output = pBuffer.readItem();
-            return new AssemblyRecipe(pRecipeId, output, inputs);
+            int energy = pBuffer.readInt();
+            return new AssemblyRecipe(pRecipeId, output, inputs, energy);
         }
 
         @Override
@@ -146,6 +154,7 @@ public class AssemblyRecipe implements Recipe<SimpleMachineContainer> {
                 CraftingHelper.write(pBuffer, ingredient);
             }
             pBuffer.writeItemStack(pRecipe.getResultItem(RegistryAccess.EMPTY), false);
+            pBuffer.writeInt(pRecipe.getEnergyCost());
         }
     }
 }

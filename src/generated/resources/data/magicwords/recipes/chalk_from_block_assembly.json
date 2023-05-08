@@ -1,5 +1,6 @@
 {
   "type": "magicwords:assembly",
+  "energy_cost": 16,
   "ingredients": [
     {
       "stack_ingredient": {

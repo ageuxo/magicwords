@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "magicwords:block/assembly_block",
+      "y": 90
+    },
+    "facing=north": {
       "model": "magicwords:block/assembly_block"
+    },
+    "facing=south": {
+      "model": "magicwords:block/assembly_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "magicwords:block/assembly_block",
+      "y": 270
     }
   }
 }

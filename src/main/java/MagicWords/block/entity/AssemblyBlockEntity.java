@@ -1,10 +1,12 @@
 package MagicWords.block.entity;
 
+import MagicWords.block.custom.AssemblyBlock;
 import MagicWords.item.crafting.AssemblyRecipe;
 import MagicWords.item.crafting.ModRecipes;
 import MagicWords.item.crafting.StackIngredient;
+import MagicWords.menus.AssemblyBlockMenu;
 import MagicWords.misc.SimpleMachineContainer;
-import MagicWords.screen.AssemblyBlockMenu;
+import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -24,10 +26,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+
+import java.util.Map;
 
 public class AssemblyBlockEntity extends BlockEntity implements MenuProvider {
     private final ItemStackHandler itemHandler = new ItemStackHandler(5){
@@ -35,9 +41,29 @@ public class AssemblyBlockEntity extends BlockEntity implements MenuProvider {
         protected void onContentsChanged(int slot) {
             setChanged();
         }
-    };
 
+      /*  @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return switch (slot){
+                case 3,4 -> false;
+                default -> super.isItemValid(slot,stack);
+        };
+        }*/
+    };
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    private final Map<Direction, LazyOptional<WrappedHandler>> directionWrappedHandlerMap =
+            Map.of(Direction.DOWN, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> i == 2, (i, s) -> false)),
+                    Direction.NORTH, LazyOptional.of(() -> new WrappedHandler(itemHandler, (index) -> index == 1,
+                            (index, stack) -> itemHandler.isItemValid(1, stack))),
+                    Direction.SOUTH, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> i == 2, (i, s) -> false)),
+                    Direction.EAST, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> i == 1,
+                            (index, stack) -> itemHandler.isItemValid(1, stack))),
+                    Direction.WEST, LazyOptional.of(() -> new WrappedHandler(itemHandler, (index) -> index == 0 || index == 1,
+                            (index, stack) -> itemHandler.isItemValid(0, stack) || itemHandler.isItemValid(1, stack))));
+
+    private final EnergyStorage energyStorage = new EnergyStorage(8000, 256, 256, 8000);
+    private LazyOptional<EnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+
 
     protected final ContainerData data;
     private static final RecipeManager.CachedCheck<SimpleMachineContainer, AssemblyRecipe> quickCheck = RecipeManager.createCheck(ModRecipes.Types.ASSEMBLY_RECIPE_TYPE.get());
@@ -49,6 +75,7 @@ public class AssemblyBlockEntity extends BlockEntity implements MenuProvider {
 
     private AssemblyRecipe currentRecipe;
 
+    private static final Logger LOGGER = LogUtils.getLogger();
     private static final int DEFAULT_INPUT_SIZE = 2;
     private static final int DEFAULT_EXTRA_SIZE = 1;
     private static final int DEFAULT_OUTPUT_SIZE = 2;
@@ -70,6 +97,8 @@ public class AssemblyBlockEntity extends BlockEntity implements MenuProvider {
                 return switch (pIndex){
                     case 0 -> AssemblyBlockEntity.this.progress;
                     case 1 -> AssemblyBlockEntity.this.maxProgress;
+                    case 2 -> AssemblyBlockEntity.this.energyStorage.getEnergyStored();
+                    case 3 -> AssemblyBlockEntity.this.energyStorage.getMaxEnergyStored();
                     default -> 0;
                 };
             }
@@ -84,7 +113,7 @@ public class AssemblyBlockEntity extends BlockEntity implements MenuProvider {
 
             @Override
             public int getCount() {
-                return 2;
+                return 4;
             }
         };
     }
@@ -104,7 +133,29 @@ public class AssemblyBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         if (cap == ForgeCapabilities.ITEM_HANDLER){
-            return lazyItemHandler.cast();
+            if (side == null){
+                return lazyItemHandler.cast();
+            }
+
+            if (directionWrappedHandlerMap.containsKey(side)){
+                Direction localDir = this.getBlockState().getValue(AssemblyBlock.FACING);
+
+                if (side == Direction.UP || side == Direction.DOWN){
+                    return directionWrappedHandlerMap.get(side).cast();
+                }
+
+                return switch (localDir){
+                    default -> directionWrappedHandlerMap.get(side.getOpposite()).cast();
+                    case EAST -> directionWrappedHandlerMap.get(side.getClockWise()).cast();
+                    case SOUTH -> directionWrappedHandlerMap.get(side).cast();
+                    case WEST -> directionWrappedHandlerMap.get(side.getCounterClockWise()).cast();
+                };
+            }
+        } else if (cap == ForgeCapabilities.ENERGY) {
+            if (side == null){
+                return lazyEnergyStorage.cast();
+            }
+
         }
 
         return super.getCapability(cap, side);
@@ -114,18 +165,21 @@ public class AssemblyBlockEntity extends BlockEntity implements MenuProvider {
     public void onLoad() {
         super.onLoad();
         lazyItemHandler = LazyOptional.of(()-> itemHandler);
+        lazyEnergyStorage = LazyOptional.of(()-> energyStorage);
     }
 
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
         lazyItemHandler.invalidate();
+        lazyEnergyStorage.invalidate();
     }
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         pTag.put("inventory", itemHandler.serializeNBT());
         pTag.putInt("assembly_block_progress", this.progress);
+        pTag.put("energy_storage", energyStorage.serializeNBT());
 
         super.saveAdditional(pTag);
     }
@@ -135,6 +189,7 @@ public class AssemblyBlockEntity extends BlockEntity implements MenuProvider {
         super.load(pTag);
         itemHandler.deserializeNBT(pTag.getCompound("inventory"));
         progress = pTag.getInt("assembly_block_progress");
+        energyStorage.deserializeNBT(pTag.get("energy_storage"));
     }
 
     public void drops() {
@@ -150,8 +205,9 @@ public class AssemblyBlockEntity extends BlockEntity implements MenuProvider {
         if(level.isClientSide){
             return;
         }
-        if (hasRecipe(entity)){
+        if (hasRecipe(entity) && isFueled(entity)){
             entity.progress++;
+            entity.energyStorage.extractEnergy(entity.currentRecipe.getEnergyCost(), false);
             setChanged(level, pos, state);
 
             if (entity.progress >= entity.maxProgress){
@@ -168,7 +224,7 @@ public class AssemblyBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private static void craftItem(AssemblyBlockEntity entity) {
-        if (hasRecipe(entity)){
+        if (hasRecipe(entity) && isFueled(entity)){
             SimpleMachineContainer container = new SimpleMachineContainer(entity.inputSlotCount, entity.extraSlotCount, entity.outputSlotCount);
             // Copy over inventory
             for (int i = 0; i < entity.itemHandler.getSlots(); i++){
@@ -281,7 +337,7 @@ public class AssemblyBlockEntity extends BlockEntity implements MenuProvider {
         return false;
     }
 
-    private static boolean isFueled(){
-        return false;
+    private static boolean isFueled(AssemblyBlockEntity entity){
+        return entity.energyStorage.getEnergyStored() >= entity.currentRecipe.getEnergyCost();
     }
 }

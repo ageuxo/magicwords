@@ -1,5 +1,6 @@
-package MagicWords.client;
+package MagicWords.client.gui;
 
+import MagicWords.client.ClientConfig;
 import MagicWords.item.custom.MagicWritingItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

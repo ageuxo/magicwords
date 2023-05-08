@@ -19,6 +19,7 @@
   "creativemodetab.magicwords_tab": "Magic Words",
 
   "gui.magicwords.assembly_block.name": "Assembly Block",
+  "gui.magicwords.energy.tooltip.1": "%s / %s FE",
 
   "magicwords.glyph_a": "Alpha",
   "magicwords.glyph_b": "Beta",
