@@ -19,20 +19,6 @@ public class MagicWritingItem extends Item {
     public static String[] lang = {"magicwords.glyph_a", "magicwords.glyph_b", "magicwords.glyph_c", "magicwords.glyph_d", "magicwords.glyph_e"};
 
 
-
-//    @Override
-//    public Component getHighlightTip(ItemStack item, Component displayName) {
-//        int dmg = item.getDamageValue();
-//        if (dmg < lang.length) {
-//            Component suffix = Component.literal(" [").withStyle(ChatFormatting.GOLD).append(Component.translatable(lang[dmg]).append("]"));
-////            LOGGER.debug(String.valueOf(displayName.copy().append(suffix)));
-//            return super.getHighlightTip(item, displayName.copy().append(suffix));
-//        } else {
-//            LOGGER.error("Out of bound Magic Writing Item");
-//            return super.getHighlightTip(item, displayName);
-//        }
-//    }
-
     @Override
     public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
         int dmg = stack.getDamageValue();
@@ -43,35 +29,19 @@ public class MagicWritingItem extends Item {
             } else {
                 stack.setDamageValue(0);
             }
-        }
-//        if (context.getLevel().isClientSide()){
-//            LOGGER.debug("Client DMG: " + stack.getDamageValue());
-//        } else {
-//            LOGGER.debug("Server DMG: " + stack.getDamageValue());
-//        }
+        } else {
 
-        BlockState state = context.getLevel().getBlockState(context.getClickedPos());
-        if (state.isFaceSturdy(context.getLevel(), context.getClickedPos(), context.getClickedFace())){
-            boolean isClickedHorizontal = context.getClickedFace().getAxis().isHorizontal();
-            context.getLevel().setBlockAndUpdate(context.getClickedPos().relative(context.getClickedFace()), ModBlocks.GLYPH_BLOCK.get().defaultBlockState()
-                    .setValue(GlyphBlock.FACING, isClickedHorizontal ? context.getClickedFace() : context.getHorizontalDirection().getOpposite() )
-                    .setValue(GlyphBlock.IS_FLAT, !isClickedHorizontal) );
+            BlockState state = context.getLevel().getBlockState(context.getClickedPos());
+            if (state.isFaceSturdy(context.getLevel(), context.getClickedPos(), context.getClickedFace())) {
+                boolean isClickedHorizontal = context.getClickedFace().getAxis().isHorizontal();
+                context.getLevel().setBlockAndUpdate(context.getClickedPos().relative(context.getClickedFace()), ModBlocks.GLYPH_BLOCK.get().defaultBlockState()
+                        .setValue(GlyphBlock.FACING, isClickedHorizontal ? context.getClickedFace() : context.getHorizontalDirection().getOpposite())
+                        .setValue(GlyphBlock.IS_FLAT, !isClickedHorizontal));
 
+            }
         }
         return InteractionResult.FAIL;
     }
 
-
-//    @Override
-//    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-//
-//        if (ItemStack.matches(oldStack, newStack) && oldStack.getDamageValue() == newStack.getDamageValue()) {
-////            LOGGER.debug("same stacks");
-//            return false;
-//        } else {
-////            LOGGER.debug("different stacks");
-//            return true;
-//        }
-//    }
 
 }
