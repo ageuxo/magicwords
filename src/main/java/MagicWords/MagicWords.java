@@ -4,6 +4,7 @@ package MagicWords;
 import MagicWords.block.ModBlocks;
 import MagicWords.block.entity.ModBlockEntities;
 import MagicWords.client.ClientConfig;
+import MagicWords.client.ClientEvents;
 import MagicWords.client.gui.AssemblyBlockScreen;
 import MagicWords.item.ModCreativeModeTab;
 import MagicWords.item.ModItems;
@@ -48,6 +49,7 @@ public class MagicWords {
 
 
         modEventBus.addListener(this::addCreative);
+        modEventBus.addListener(ClientEvents.ClientModBusEvents::registerBlockColors);
 
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.GENERAL_SPEC);

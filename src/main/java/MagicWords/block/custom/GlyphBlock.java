@@ -33,6 +33,7 @@ public class GlyphBlock extends HorizontalDirectionalBlock {
             Block.box(0, 0, 0, 16, 16, 1),
             Block.box(15, 0, 0, 16, 16, 16) };
     private static final VoxelShape SHAPE_FLAT = Block.box(0, 0, 0, 16, 1, 16);
+    public static final int BLOCK_TINT = 0xff0000;
 
 
     public GlyphBlock(Properties pProperties) {

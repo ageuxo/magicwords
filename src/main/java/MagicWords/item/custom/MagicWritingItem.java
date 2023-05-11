@@ -3,6 +3,7 @@ package MagicWords.item.custom;
 import MagicWords.block.ModBlocks;
 import MagicWords.block.custom.GlyphBlock;
 import com.mojang.logging.LogUtils;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -31,10 +32,18 @@ public class MagicWritingItem extends Item {
             }
         } else {
 
-            BlockState state = context.getLevel().getBlockState(context.getClickedPos());
-            if (state.isFaceSturdy(context.getLevel(), context.getClickedPos(), context.getClickedFace())) {
-                boolean isClickedHorizontal = context.getClickedFace().getAxis().isHorizontal();
-                context.getLevel().setBlockAndUpdate(context.getClickedPos().relative(context.getClickedFace()), ModBlocks.GLYPH_BLOCK.get().defaultBlockState()
+            boolean isClickedHorizontal = context.getClickedFace().getAxis().isHorizontal();
+            BlockPos placingPos = context.getClickedPos().relative(context.getClickedFace());
+            //Check for support underneath if vertical placement
+            BlockState supportingState = !isClickedHorizontal && context.getClickedFace().getAxisDirection().getStep() < 0 ? context.getLevel().getBlockState(placingPos.below()) : context.getLevel().getBlockState(context.getClickedPos());
+
+            BlockState replacingState = context.getLevel().getBlockState(placingPos);
+
+            if (!isClickedHorizontal && context.getClickedFace().getAxisDirection().getStep() < 0) supportingState = context.getLevel().getBlockState(placingPos.below());
+
+            if (supportingState.isFaceSturdy(context.getLevel(), context.getClickedPos(), context.getClickedFace()) && (replacingState.canBeReplaced() || replacingState.isAir()) ) {
+
+                context.getLevel().setBlockAndUpdate(placingPos, ModBlocks.GLYPH_BLOCK.get().defaultBlockState()
                         .setValue(GlyphBlock.FACING, isClickedHorizontal ? context.getClickedFace() : context.getHorizontalDirection().getOpposite())
                         .setValue(GlyphBlock.IS_FLAT, !isClickedHorizontal));
 
