@@ -1,6 +1,6 @@
 package MagicWords.menus;
 
-import MagicWords.block.ModBlocks;
+import com.mojang.logging.LogUtils;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -8,10 +8,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 public abstract class AbstractMachineMenu extends AbstractContainerMenu {
+    private static final Logger LOGGER = LogUtils.getLogger();
     protected final Level level;
     protected final ContainerData data;
     protected final BlockEntity blockEntity;
@@ -60,8 +62,8 @@ public abstract class AbstractMachineMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public boolean stillValid(Player pPlayer) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), pPlayer, ModBlocks.ASSEMBLY_BLOCK.get());
+    public boolean stillValid(@NotNull Player pPlayer) {
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), pPlayer, blockEntity.getBlockState().getBlock());
     }
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
@@ -103,7 +105,7 @@ public abstract class AbstractMachineMenu extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else {
-            System.out.println("Invalid slotIndex:" + index);
+            LOGGER.error("Invalid slotIndex:" + index);
             return ItemStack.EMPTY;
         }
         // If stack size == 0 (the entire stack was moved) set slot contents to null
