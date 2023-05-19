@@ -69,7 +69,11 @@ public class ModBlocks {
 
     public static RegistryObject<Block> DUSTY_SAPLING = registerBlock("dusty_sapling", ()-> new SaplingBlock(new DustyTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING).strength(2f)));
 
-    public static RegistryObject<Block> GLYPH_BLOCK = registerBlock("glyph", ()-> new GlyphBlock(BlockBehaviour.Properties.of(Material.CLAY).instabreak().noCollission().noOcclusion()));
+    public static RegistryObject<Block> GLYPH_A_BLOCK = registerBlock("glyph_a", ()-> new GlyphBlock(BlockBehaviour.Properties.of(Material.CLAY).instabreak().noCollission().noOcclusion()));
+    public static RegistryObject<Block> GLYPH_B_BLOCK = registerBlock("glyph_b", ()-> new GlyphBlock(BlockBehaviour.Properties.of(Material.CLAY).instabreak().noCollission().noOcclusion()));
+    public static RegistryObject<Block> GLYPH_C_BLOCK = registerBlock("glyph_c", ()-> new GlyphBlock(BlockBehaviour.Properties.of(Material.CLAY).instabreak().noCollission().noOcclusion()));
+    public static RegistryObject<Block> GLYPH_D_BLOCK = registerBlock("glyph_d", ()-> new GlyphBlock(BlockBehaviour.Properties.of(Material.CLAY).instabreak().noCollission().noOcclusion()));
+    public static RegistryObject<Block> GLYPH_E_BLOCK = registerBlock("glyph_e", ()-> new GlyphBlock(BlockBehaviour.Properties.of(Material.CLAY).instabreak().noCollission().noOcclusion()));
 
     public static RegistryObject<Block> HORIZ_FACE = registerBlock("horiz_face", ()-> new ModDirectionalBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3f)));
 

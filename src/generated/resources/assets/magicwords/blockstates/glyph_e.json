@@ -1,0 +1,38 @@
+{
+  "variants": {
+    "facing=east,is_flat=false": {
+      "model": "magicwords:block/glyph/glyph_e",
+      "y": 90
+    },
+    "facing=east,is_flat=true": {
+      "model": "magicwords:block/glyph/glyph_e",
+      "x": -90,
+      "y": 90
+    },
+    "facing=north,is_flat=false": {
+      "model": "magicwords:block/glyph/glyph_e"
+    },
+    "facing=north,is_flat=true": {
+      "model": "magicwords:block/glyph/glyph_e",
+      "x": -90
+    },
+    "facing=south,is_flat=false": {
+      "model": "magicwords:block/glyph/glyph_e",
+      "y": 180
+    },
+    "facing=south,is_flat=true": {
+      "model": "magicwords:block/glyph/glyph_e",
+      "x": -90,
+      "y": 180
+    },
+    "facing=west,is_flat=false": {
+      "model": "magicwords:block/glyph/glyph_e",
+      "y": 270
+    },
+    "facing=west,is_flat=true": {
+      "model": "magicwords:block/glyph/glyph_e",
+      "x": -90,
+      "y": 270
+    }
+  }
+}

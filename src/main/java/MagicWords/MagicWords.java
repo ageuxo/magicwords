@@ -9,11 +9,13 @@ import MagicWords.client.gui.AssemblyBlockScreen;
 import MagicWords.item.ModCreativeModeTab;
 import MagicWords.item.ModItems;
 import MagicWords.item.crafting.ModRecipes;
+import MagicWords.item.custom.MagicWritingItem;
 import MagicWords.menus.ModMenuTypes;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -93,6 +95,13 @@ public class MagicWords {
         }
 
 
+    }
+    @Mod.EventBusSubscriber
+    public static class CommonEvents{
+        @SubscribeEvent
+        public static void onTagsUpdated(TagsUpdatedEvent event){
+            MagicWritingItem.updateGlyphList();
+        }
     }
 
 }

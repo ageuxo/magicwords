@@ -24,8 +24,8 @@ public class ClientEvents {
 
         @SubscribeEvent
         public static void registerBlockColors(RegisterColorHandlersEvent.Block event){
-            event.register((state, getter, pos, tint)-> (tint > 0 ? GlyphBlock.BLOCK_TINT : 0), ModBlocks.GLYPH_BLOCK.get());
-            LOGGER.debug(event.getBlockColors().toString());
+            event.register((state, getter, pos, tint)-> (tint > 0 ? GlyphBlock.BLOCK_TINT : 0),
+                    ModBlocks.GLYPH_A_BLOCK.get(), ModBlocks.GLYPH_B_BLOCK.get(), ModBlocks.GLYPH_C_BLOCK.get(), ModBlocks.GLYPH_D_BLOCK.get(), ModBlocks.GLYPH_E_BLOCK.get());
 
         }
     }

@@ -20,8 +20,9 @@ public class WritingHudOverlay {
 
         if (Minecraft.getInstance().player != null) {
             ItemStack mainHandItem = Minecraft.getInstance().player.getMainHandItem();
-            if ( mainHandItem.getItem() instanceof MagicWritingItem) {
-                GuiComponent.drawCenteredString(poseStack, Minecraft.getInstance().font, Component.literal(" [").withStyle(ChatFormatting.GOLD).append(Component.translatable( MagicWritingItem.lang[mainHandItem.getDamageValue()] ).append("]")), x+xOffset, y+yOffset, 128);
+            if ( mainHandItem.getItem() instanceof MagicWritingItem && mainHandItem.getTag() != null && mainHandItem.getTag().get("glyph_selected") != null) {
+
+                GuiComponent.drawCenteredString(poseStack, Minecraft.getInstance().font, Component.literal(" [").withStyle(ChatFormatting.GOLD).append(Component.translatable( MagicWritingItem.lang[mainHandItem.getTag().getInt("glyph_selected")] ).append("]")), x+xOffset, y+yOffset, 128);
             }
         }
 

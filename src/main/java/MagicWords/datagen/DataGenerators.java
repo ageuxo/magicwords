@@ -27,6 +27,7 @@ public class DataGenerators {
         generator.addProvider(true, new ModBlockStateProvider(packOutput, existingFileHelper));
         generator.addProvider(true, new ModItemModelProvider(packOutput, existingFileHelper));
         generator.addProvider(event.includeServer(), new ModWorldGenProvider(packOutput, lookupProvider));
+        generator.addProvider(true, new ModTagsProvider.Blocks(packOutput, lookupProvider, existingFileHelper));
 
 
 

@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"render_type": "minecraft:cutout",
 	"textures": {
-		"0": "magicwords:block/glyph",
-		"particle": "magicwords:block/glyph"
+		"0": "magicwords:block/glyph/glyph_a",
+		"particle": "magicwords:block/glyph/glyph_a"
 	},
 	"elements": [
 		{

@@ -47,7 +47,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         saplingBlock(ModBlocks.DUSTY_SAPLING);
 
-        glyphBlock(ModBlocks.GLYPH_BLOCK, "block/glyph");
+        glyphBlock(ModBlocks.GLYPH_A_BLOCK, "block/glyph/glyph_a");
+        glyphBlock(ModBlocks.GLYPH_B_BLOCK, "block/glyph/glyph_b");
+        glyphBlock(ModBlocks.GLYPH_C_BLOCK, "block/glyph/glyph_c");
+        glyphBlock(ModBlocks.GLYPH_D_BLOCK, "block/glyph/glyph_d");
+        glyphBlock(ModBlocks.GLYPH_E_BLOCK, "block/glyph/glyph_e");
 
         directionalBlock(ModBlocks.HORIZ_FACE.get(), models().getExistingFile(new ResourceLocation("magicwords","block/horiz_face")));
         connectingBlock(ModBlocks.CONNECTING_FACE_BLOCK, "connecting_block");

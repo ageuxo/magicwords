@@ -71,7 +71,7 @@ public class GlyphBlock extends HorizontalDirectionalBlock {
     @ParametersAreNonnullByDefault
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos){
         if (state.getValue(IS_FLAT)){
-            return level.getBlockState(pos.below()).isFaceSturdy(level, pos.below(), Direction.UP);
+            return level.getBlockState(pos.below()).isFaceSturdy(level, pos, Direction.UP);
         } else {
             return level.getBlockState(pos.relative(state.getValue(FACING).getOpposite())).isFaceSturdy(level, pos.relative(state.getValue(FACING)), state.getValue(FACING));
         }
