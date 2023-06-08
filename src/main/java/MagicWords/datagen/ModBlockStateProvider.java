@@ -60,6 +60,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         facingBlock(ModBlocks.ASSEMBLY_BLOCK);
         simpleBlockItem(ModBlocks.ASSEMBLY_BLOCK.get(), itemModels().getExistingFile(modLoc("block/assembly_block")));
 
+        simpleBlockWithItem(ModBlocks.FOCUS_BLOCK.get(), models().getExistingFile(new ResourceLocation(MagicWords.MODID, "block/focus_block")));
+
 
     }
 

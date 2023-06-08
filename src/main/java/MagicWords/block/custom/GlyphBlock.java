@@ -1,10 +1,13 @@
 package MagicWords.block.custom;
 
 import com.mojang.logging.LogUtils;
+import io.netty.util.internal.ThreadLocalRandom;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -14,6 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -22,7 +26,7 @@ import org.slf4j.Logger;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-
+@SuppressWarnings({"deprecation"})
 public class GlyphBlock extends HorizontalDirectionalBlock {
     private static final Logger LOGGER = LogUtils.getLogger();
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -60,12 +64,7 @@ public class GlyphBlock extends HorizontalDirectionalBlock {
     @Override
     @ParametersAreNonnullByDefault
     public @NotNull VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        int facingDirection = pState.getValue(FACING).getOpposite().get2DDataValue();
-        if (!pState.getValue(IS_FLAT)) {
-            return SHAPES[facingDirection];
-        } else {
-            return SHAPE_FLAT;
-        }
+        return getShapeForState(pState);
     }
 
     @ParametersAreNonnullByDefault
@@ -84,6 +83,26 @@ public class GlyphBlock extends HorizontalDirectionalBlock {
         } else {
             return state;
         }
+    }
+
+    public static VoxelShape getShapeForState(BlockState state){
+        int facingDirection = state.getValue(FACING).getOpposite().get2DDataValue();
+        if (!state.getValue(IS_FLAT)) {
+            return SHAPES[facingDirection];
+        } else {
+            return SHAPE_FLAT;
+        }
+    }
+
+    public static void spawnParticlesForState(Level level, BlockPos glyphPos, ParticleOptions particleOptions, int spawnCount){
+        AABB bb = getShapeForState(level.getBlockState(glyphPos)).bounds();
+        for (int i = 0; i < spawnCount; i++) {
+            double bbX = ThreadLocalRandom.current().nextDouble(bb.minX, bb.maxX);
+            double bbY = ThreadLocalRandom.current().nextDouble(bb.minY, bb.maxY);
+            double bbZ = ThreadLocalRandom.current().nextDouble(bb.minZ, bb.maxZ);
+            level.addParticle(particleOptions, glyphPos.getX()+bbX, glyphPos.getY()+bbY, glyphPos.getZ()+bbZ, 1,1,1);
+        }
+
     }
 
 

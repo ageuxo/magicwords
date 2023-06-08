@@ -13,6 +13,7 @@ public class ModTags {
     }
 
     public static final TagKey<Block> GLYPH_BLOCKS = BlockTags.create(modTagRL("glyph_blocks"));
+    public static final TagKey<Block> FOCUS_BLOCKS = BlockTags.create(modTagRL("focus_blocks"));
 
 
 }

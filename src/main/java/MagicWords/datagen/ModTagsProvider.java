@@ -27,6 +27,8 @@ public class ModTagsProvider {
         protected void addTags(HolderLookup.@NotNull Provider pProvider) {
             this.tag(ModTags.GLYPH_BLOCKS)
                     .add(ModBlocks.GLYPH_A_BLOCK.get(), ModBlocks.GLYPH_B_BLOCK.get(), ModBlocks.GLYPH_C_BLOCK.get(), ModBlocks.GLYPH_D_BLOCK.get(), ModBlocks.GLYPH_E_BLOCK.get());
+
+            this.tag(ModTags.FOCUS_BLOCKS).add(ModBlocks.FOCUS_BLOCK.get());
         }
     }
 

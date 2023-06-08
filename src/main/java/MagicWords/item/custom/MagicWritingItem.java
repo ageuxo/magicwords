@@ -23,30 +23,34 @@ public class MagicWritingItem extends Item {
     }
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public static String[] lang = {"magicwords.glyph_a", "magicwords.glyph_b", "magicwords.glyph_c", "magicwords.glyph_d", "magicwords.glyph_e"};
-    private static ITag<Block> blocks = ForgeRegistries.BLOCKS.tags().getTag(ModTags.GLYPH_BLOCKS);
+    public static final String[] lang = {"magicwords.glyph_a", "magicwords.glyph_b", "magicwords.glyph_c", "magicwords.glyph_d", "magicwords.glyph_e"};
+    private static final ITag<Block> blocks = ForgeRegistries.BLOCKS.tags().getTag(ModTags.GLYPH_BLOCKS);
     private static List<Block> glyphList = blocks.stream().toList();
 
 
     @Override
     public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
 //        int dmg = stack.getDamageValue();
-        CompoundTag nbt = stack.getOrCreateTag();
-        if (nbt.contains("glyph_selected")){
-            int selector = nbt.getInt("glyph_selected");
-            if (context.getPlayer().isSecondaryUseActive()){
-                if (selector+1 < lang.length && selector+1 < glyphList.size()){
-                    nbt.putInt("glyph_selected", ++selector);
-                } else {
-                    nbt.putInt("glyph_selected", 0);
+        if (!context.getLevel().getBlockState(context.getClickedPos()).is(ModTags.FOCUS_BLOCKS)){
+            CompoundTag nbt = stack.getOrCreateTag();
+            if (nbt.contains("glyph_selected")) {
+                int selector = nbt.getInt("glyph_selected");
+                if (context.getPlayer().isSecondaryUseActive()) {
+                    if (selector + 1 < lang.length && selector + 1 < glyphList.size()) {
+                        nbt.putInt("glyph_selected", ++selector);
+                    } else {
+                        nbt.putInt("glyph_selected", 0);
+                    }
+                } else if (selector < glyphList.size()) {
+                    return doPlacement(context, selector);
                 }
-            } else if (selector < glyphList.size()){
-                return doPlacement(context, selector);
+            } else {
+                nbt.putInt("glyph_selected", 0);
             }
+            return InteractionResult.FAIL;
         } else {
-            nbt.putInt("glyph_selected", 0);
+            return InteractionResult.PASS;
         }
-        return InteractionResult.FAIL;
     }
 
     protected InteractionResult doPlacement(UseOnContext context, int glyphIndex){

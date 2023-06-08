@@ -11,6 +11,8 @@ import MagicWords.item.ModItems;
 import MagicWords.item.crafting.ModRecipes;
 import MagicWords.item.custom.MagicWritingItem;
 import MagicWords.menus.ModMenuTypes;
+import MagicWords.misc.ModParticles;
+import MagicWords.networking.MagicwordsPacketHandler;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.common.MinecraftForge;
@@ -40,11 +42,12 @@ public class MagicWords {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
-
+        MagicwordsPacketHandler.register();
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModRecipes.register(modEventBus);
         ModRecipes.Types.register(modEventBus);
+        ModParticles.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);

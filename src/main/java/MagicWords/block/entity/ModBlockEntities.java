@@ -15,6 +15,10 @@ public class ModBlockEntities {
             .register("assembly_block_entity", ()->BlockEntityType.Builder.of(AssemblyBlockEntity::new,
                                                     ModBlocks.ASSEMBLY_BLOCK.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<FocusBlockEntity>> FOCUS_BLOCK_ENTITY = BLOCK_ENTITIES
+            .register("focus_block_entity", ()->BlockEntityType.Builder.of(FocusBlockEntity::new,
+                                                    ModBlocks.FOCUS_BLOCK.get()).build(null));
+
     public static void register(IEventBus eventBus){
         BLOCK_ENTITIES.register(eventBus);
     }
