@@ -9,10 +9,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -25,10 +27,8 @@ public class ModBlocks {
 
 
 
-    public static final RegistryObject<Block> DUMMY_BLOCK = registerBlock("dummy_block", ()-> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(6f).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> CHALK_BLOCK = registerBlock("chalk_block", ()-> new Block(BlockBehaviour.Properties.of(Material.SAND).strength(0.5f)));
-
-    public static final RegistryObject<Block> DUMMY_LOG_BLOCK = registerBlock("dummy_log_block", ()-> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2f)));
+    public static final RegistryObject<Block> DUMMY_BLOCK = registerBlock("dummy_block", ()-> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(6f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> CHALK_BLOCK = registerBlock("chalk_block", ()-> new Block(BlockBehaviour.Properties.copy(Blocks.SAND).strength(0.5f)));
 
     public static final RegistryObject<Block> DUSTY_LOG = registerBlock("dusty_log", ()-> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(2f)));
     public static final RegistryObject<Block> DUSTY_WOOD = registerBlock("dusty_wood", ()-> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).strength(2f)));
@@ -69,18 +69,18 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> DUSTY_SAPLING = registerBlock("dusty_sapling", ()-> new SaplingBlock(new DustyTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING).strength(2f)));
 
-    public static final RegistryObject<Block> GLYPH_A_BLOCK = registerBlock("glyph_a", ()-> new GlyphBlock(BlockBehaviour.Properties.of(Material.CLAY).instabreak().noCollission().noOcclusion()));
-    public static final RegistryObject<Block> GLYPH_B_BLOCK = registerBlock("glyph_b", ()-> new GlyphBlock(BlockBehaviour.Properties.of(Material.CLAY).instabreak().noCollission().noOcclusion()));
-    public static final RegistryObject<Block> GLYPH_C_BLOCK = registerBlock("glyph_c", ()-> new GlyphBlock(BlockBehaviour.Properties.of(Material.CLAY).instabreak().noCollission().noOcclusion()));
-    public static final RegistryObject<Block> GLYPH_D_BLOCK = registerBlock("glyph_d", ()-> new GlyphBlock(BlockBehaviour.Properties.of(Material.CLAY).instabreak().noCollission().noOcclusion()));
-    public static final RegistryObject<Block> GLYPH_E_BLOCK = registerBlock("glyph_e", ()-> new GlyphBlock(BlockBehaviour.Properties.of(Material.CLAY).instabreak().noCollission().noOcclusion()));
+    public static final RegistryObject<Block> GLYPH_A_BLOCK = registerBlock("glyph_a", ()-> new GlyphBlock(BlockBehaviour.Properties.copy(Blocks.REDSTONE_WIRE).instabreak().noCollission().noOcclusion()));
+    public static final RegistryObject<Block> GLYPH_B_BLOCK = registerBlock("glyph_b", ()-> new GlyphBlock(BlockBehaviour.Properties.copy(Blocks.REDSTONE_WIRE).instabreak().noCollission().noOcclusion()));
+    public static final RegistryObject<Block> GLYPH_C_BLOCK = registerBlock("glyph_c", ()-> new GlyphBlock(BlockBehaviour.Properties.copy(Blocks.REDSTONE_WIRE).instabreak().noCollission().noOcclusion()));
+    public static final RegistryObject<Block> GLYPH_D_BLOCK = registerBlock("glyph_d", ()-> new GlyphBlock(BlockBehaviour.Properties.copy(Blocks.REDSTONE_WIRE).instabreak().noCollission().noOcclusion()));
+    public static final RegistryObject<Block> GLYPH_E_BLOCK = registerBlock("glyph_e", ()-> new GlyphBlock(BlockBehaviour.Properties.copy(Blocks.REDSTONE_WIRE).instabreak().noCollission().noOcclusion()));
 
-    public static final RegistryObject<Block> HORIZ_FACE = registerBlock("horiz_face", ()-> new ModDirectionalBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3f)));
+    public static final RegistryObject<Block> HORIZ_FACE = registerBlock("horiz_face", ()-> new ModDirectionalBlock(BlockBehaviour.Properties.copy(Blocks.PISTON).strength(3f)));
 
-    public static final RegistryObject<Block> CONNECTING_FACE_BLOCK = registerBlock("connecting_face_block", ()-> new ConnectingFaceBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL)));
+    public static final RegistryObject<Block> CONNECTING_FACE_BLOCK = registerBlock("connecting_face_block", ()-> new ConnectingFaceBlock(BlockBehaviour.Properties.copy(Blocks.PISTON)));
 
-    public static final RegistryObject<Block> ASSEMBLY_BLOCK = registerBlock("assembly_block", ()-> new AssemblyBlock(BlockBehaviour.Properties.of(Material.METAL)));
-    public static final RegistryObject<Block> FOCUS_BLOCK = registerBlock("focus_block", ()-> new FocusBlock(BlockBehaviour.Properties.of(Material.STONE).noOcclusion()));
+    public static final RegistryObject<Block> ASSEMBLY_BLOCK = registerBlock("assembly_block", ()-> new AssemblyBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+    public static final RegistryObject<Block> FOCUS_BLOCK = registerBlock("focus_block", ()-> new FocusBlock(BlockBehaviour.Properties.copy(Blocks.POLISHED_ANDESITE).noOcclusion().strength(1f)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

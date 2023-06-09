@@ -13,7 +13,7 @@ public class AssemblyBlockMenu extends AbstractMachineMenu {
     public final AssemblyBlockEntity blockEntity;
 
     public AssemblyBlockMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
-        this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
+        this(id, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
     }
 
     public AssemblyBlockMenu(int id, Inventory inv, BlockEntity entity, ContainerData data) {

@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 public class ClientConfig {
     public static final ForgeConfigSpec GENERAL_SPEC;
 
-    public static final String[] creativeTabExcludeList = { "magicwords:glyph"};
+    public static final String[] creativeTabExcludeList = { "magicwords:glyph_a","magicwords:glyph_b","magicwords:glyph_c","magicwords:glyph_d","magicwords:glyph_e"};
 
     private static final Predicate<Object> isValidPredicate = x -> {
         if (x instanceof String){

@@ -30,5 +30,6 @@
     "recipes": [
       "magicwords:chalk_block"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

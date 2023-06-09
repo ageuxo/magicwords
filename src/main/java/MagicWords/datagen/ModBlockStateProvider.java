@@ -31,7 +31,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         blockWithItem(ModBlocks.CHALK_BLOCK);
         blockWithItem(ModBlocks.DUMMY_BLOCK);
-        logBlockWithItem(ModBlocks.DUMMY_LOG_BLOCK);
 
         blockWithItem(ModBlocks.DUSTY_PLANKS);
         blockWithItem(ModBlocks.DUSTY_LEAVES);

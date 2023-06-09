@@ -1,6 +1,6 @@
 package MagicWords.client.gui.widgets;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
@@ -30,10 +30,10 @@ public class BarWidget extends AbstractWidget {
     }
 
     @Override
-    public void renderWidget(@NotNull PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-        renderOutline(poseStack, this.getX(), this.getY(), this.getWidth(), this.getHeight(), this.outlineColour);
-        fill(poseStack, this.getX()+OUTLINE_THICKNESS, this.getY()+OUTLINE_THICKNESS, this.getX()+this.getWidth()-OUTLINE_THICKNESS, this.getY()+getHeight()-OUTLINE_THICKNESS, 0xff202020);
-        fillGradient(poseStack, this.getX()+ OUTLINE_THICKNESS, this.getY()+ OUTLINE_THICKNESS +barOffset,
+    public void renderWidget(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        guiGraphics.renderOutline( this.getX(), this.getY(), this.getWidth(), this.getHeight(), this.outlineColour);
+        guiGraphics.fill( this.getX()+OUTLINE_THICKNESS, this.getY()+OUTLINE_THICKNESS, this.getX()+this.getWidth()-OUTLINE_THICKNESS, this.getY()+getHeight()-OUTLINE_THICKNESS, 0xff202020);
+        guiGraphics.fillGradient( this.getX()+ OUTLINE_THICKNESS, this.getY()+ OUTLINE_THICKNESS +barOffset,
                 this.getX()+this.getWidth()- OUTLINE_THICKNESS, this.getY()+this.getHeight()- OUTLINE_THICKNESS,
                 gradientFrom, gradientTo,
                 0);

@@ -4,10 +4,8 @@ import MagicWords.MagicWords;
 import MagicWords.client.gui.widgets.BarWidget;
 import MagicWords.client.gui.widgets.PlayerInventoryWidget;
 import MagicWords.menus.AbstractMachineMenu;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -34,33 +32,33 @@ public class AssemblyBlockScreen extends AbstractMachineScreen<AbstractMachineMe
 //    vars width/height = width/height of game window
 //    vars imageWidth/imageHeight = width/height of Bg plate in image
     @Override
-    protected void renderBg(@NotNull PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
+    protected void renderBg(@NotNull GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
+//        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+//        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+//        RenderSystem.setShaderTexture(0, TEXTURE);
         int x = ((width-imageWidth)/2);
         int y = ((height-imageHeight)/2);
 
-        blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
-        renderProgressArrow(pPoseStack, x+78, y+40);
+        guiGraphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
+        renderProgressArrow(guiGraphics, x+78, y+40);
     }
 
-    private void renderProgressArrow(PoseStack poseStack, int x, int y){
+    private void renderProgressArrow(GuiGraphics poseStack, int x, int y){
         if (menu.isCrafting()){
-            blit(poseStack, x, y, 176, 0, menu.getScaledProgress(26), 8, 256, 256);
+            poseStack.blit(TEXTURE, x, y, 176, 0, menu.getScaledProgress(26), 8, 256, 256);
         }
     }
 
     @Override
-    public void render(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
+    public void render(@NotNull GuiGraphics guiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         barWidget.updateWidget(menu.getCurrentEnergy(), menu.getMaxEnergy());
-        super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
-        renderMouseCoords(pPoseStack, pMouseX, pMouseY);
+        super.render(guiGraphics, pMouseX, pMouseY, pPartialTick);
+        renderMouseCoords(guiGraphics, pMouseX, pMouseY);
     }
 
-    private void renderMouseCoords(PoseStack poseStack, int mouseX, int mouseY){
-        drawString(poseStack, Minecraft.getInstance().font, mouseX + ":" + mouseY, width-50, height-10, 500);
-        drawString(poseStack, Minecraft.getInstance().font, "Scaled: " + menu.getScaledProgress(26) + " Progress: " + menu.getCurrentProgress(), width-120, height-30, 500);
-        drawString(poseStack, Minecraft.getInstance().font, "Scaled: " + menu.getScaledEnergy(barWidget.getHeight()) + " Energy: " + menu.getCurrentEnergy(), width-140, height-50, 500);
+    private void renderMouseCoords(GuiGraphics guiGraphics, int mouseX, int mouseY){
+        guiGraphics.drawString( Minecraft.getInstance().font, mouseX + ":" + mouseY, width-50, height-10, 500);
+        guiGraphics.drawString( Minecraft.getInstance().font, "Scaled: " + menu.getScaledProgress(26) + " Progress: " + menu.getCurrentProgress(), width-120, height-30, 500);
+        guiGraphics.drawString( Minecraft.getInstance().font, "Scaled: " + menu.getScaledEnergy(barWidget.getHeight()) + " Energy: " + menu.getCurrentEnergy(), width-140, height-50, 500);
     }
 }

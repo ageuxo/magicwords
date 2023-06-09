@@ -21,7 +21,7 @@ public abstract class AbstractMachineMenu extends AbstractContainerMenu {
     public <T extends BlockEntity> AbstractMachineMenu(MenuType<?> pMenuType, int pContainerId, Inventory inv, T blockEntity, ContainerData data, int slotCount) {
         super(pMenuType, pContainerId);
         this.blockEntity = blockEntity;
-        this.level = inv.player.level;
+        this.level = inv.player.level();
         this.data = data;
         this.TE_INVENTORY_SLOT_COUNT = slotCount;
 
