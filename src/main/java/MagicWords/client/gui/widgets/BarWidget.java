@@ -35,8 +35,7 @@ public class BarWidget extends AbstractWidget {
         guiGraphics.fill( this.getX()+OUTLINE_THICKNESS, this.getY()+OUTLINE_THICKNESS, this.getX()+this.getWidth()-OUTLINE_THICKNESS, this.getY()+getHeight()-OUTLINE_THICKNESS, 0xff202020);
         guiGraphics.fillGradient( this.getX()+ OUTLINE_THICKNESS, this.getY()+ OUTLINE_THICKNESS +barOffset,
                 this.getX()+this.getWidth()- OUTLINE_THICKNESS, this.getY()+this.getHeight()- OUTLINE_THICKNESS,
-                gradientFrom, gradientTo,
-                0);
+                gradientFrom, gradientTo);
     }
 
     @Override
